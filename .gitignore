@@ -1,6 +1,7 @@
 bazel-*
 *.pyc
-__pycache/*
+__pycache__/*
+log/*.json
 mediapipe/provisioning_profile.mobileprovision
 mediapipe/MediaPipe.xcodeproj
 mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
