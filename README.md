@@ -156,7 +156,7 @@ the MediaPipe Stack Overflow with a `mediapipe` tag.
 Our project does real-time translation of American Sign Language into English text (characters only for now). All data was self-collected and we used google collab to collect, aggregate, and analyze data. We achieved this objective using Mediapipe, a machine learning application that can handle live streams of data.
 
 ## Contributors
-- Ari Alvan
+- Ari Alavi
 - Vahe B.
 - Rafael Trinidad
 - Gokul Deep
