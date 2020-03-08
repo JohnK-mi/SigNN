@@ -1,160 +1,8 @@
-<<<<<<< HEAD
----
-layout: default
-title: Home
-nav_order: 1
----
-
-![MediaPipe](docs/images/mediapipe_small.png)
-
---------------------------------------------------------------------------------
-
-## Cross-platform ML solutions made simple
-
-[MediaPipe](https://google.github.io/mediapipe/) is the simplest way for researchers
-and developers to build world-class ML solutions and applications for mobile,
-desktop/cloud, web and IoT devices.
-
-![accelerated.png](docs/images/accelerated_small.png)                                                               | ![cross_platform.png](docs/images/cross_platform_small.png)
-:------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:
-***End-to-End acceleration***: *built-in fast ML inference and processing accelerated even on common hardware* | ***Build one, deploy anywhere***: *Unified solution works across Android, iOS, desktop/cloud, web and IoT*
-![ready_to_use.png](docs/images/ready_to_use_small.png)                                                             | ![open_source.png](docs/images/open_source_small.png)
-***Ready-to-use solutions***: *Cutting-edge ML solutions demonstrating full power of the framework*            | ***Free and open source***: *Framework and solutions both under Apache 2.0, fully extensible and customizable*
-
-## ML solutions in MediaPipe
-
-Face Detection                                                                                                                 | Face Mesh                                                                                                       | Iris 🆕                                                                                                    | Hands                                                                                                      | Pose 🆕
-:----------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: | :----:
-[![face_detection](docs/images/mobile/face_detection_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/face_detection) | [![face_mesh](docs/images/mobile/face_mesh_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/face_mesh) | [![iris](docs/images/mobile/iris_tracking_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/iris) | [![hand](docs/images/mobile/hand_tracking_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/hands) | [![pose](docs/images/mobile/pose_tracking_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/pose)
-
-Hair Segmentation                                                                                                                       | Object Detection                                                                                                                     | Box Tracking                                                                                                                | Objectron                                                                                                             | KNIFT
-:-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :---:
-[![hair_segmentation](docs/images/mobile/hair_segmentation_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/hair_segmentation) | [![object_detection](docs/images/mobile/object_detection_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/object_detection) | [![box_tracking](docs/images/mobile/object_tracking_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/box_tracking) | [![objectron](docs/images/mobile/objectron_chair_android_gpu_small.gif)](https://google.github.io/mediapipe/solutions/objectron) | [![knift](docs/images/mobile/template_matching_android_cpu_small.gif)](https://google.github.io/mediapipe/solutions/knift)
-
-<!-- []() in the first cell is needed to preserve table formatting in GitHub Pages. -->
-<!-- Whenever this table is updated, paste a copy to solutions/solutions.md. -->
-
-[]()                                                                          | Android | iOS | Desktop | Python | Web | Coral
-:---------------------------------------------------------------------------- | :-----: | :-: | :-----: | :----: | :-: | :---:
-[Face Detection](https://google.github.io/mediapipe/solutions/face_detection)       | ✅       | ✅   | ✅       |        | ✅   | ✅
-[Face Mesh](https://google.github.io/mediapipe/solutions/face_mesh)                 | ✅       | ✅   | ✅       |        |     |
-[Iris](https://google.github.io/mediapipe/solutions/iris) 🆕                         | ✅       | ✅   | ✅       |        | ✅   |
-[Hands](https://google.github.io/mediapipe/solutions/hands)                         | ✅       | ✅   | ✅       |        | ✅   |
-[Pose](https://google.github.io/mediapipe/solutions/pose) 🆕                         | ✅       | ✅   | ✅       | ✅      | ✅   |
-[Hair Segmentation](https://google.github.io/mediapipe/solutions/hair_segmentation) | ✅       |     | ✅       |        | ✅   |
-[Object Detection](https://google.github.io/mediapipe/solutions/object_detection)   | ✅       | ✅   | ✅       |        |     | ✅
-[Box Tracking](https://google.github.io/mediapipe/solutions/box_tracking)           | ✅       | ✅   | ✅       |        |     |
-[Objectron](https://google.github.io/mediapipe/solutions/objectron)                 | ✅       |     |         |        |     |
-[KNIFT](https://google.github.io/mediapipe/solutions/knift)                         | ✅       |     |         |        |     |
-[AutoFlip](https://google.github.io/mediapipe/solutions/autoflip)                   |         |     | ✅       |        |     |
-[MediaSequence](https://google.github.io/mediapipe/solutions/media_sequence)        |         |     | ✅       |        |     |
-[YouTube 8M](https://google.github.io/mediapipe/solutions/youtube_8m)               |         |     | ✅       |        |     |
-
-## MediaPipe on the Web
-
-MediaPipe on the Web is an effort to run the same ML solutions built for mobile
-and desktop also in web browsers. The official API is under construction, but
-the core technology has been proven effective. Please see
-[MediaPipe on the Web](https://developers.googleblog.com/2020/01/mediapipe-on-web.html)
-in Google Developers Blog for details.
-
-You can use the following links to load a demo in the MediaPipe Visualizer, and
-over there click the "Runner" icon in the top bar like shown below. The demos
-use your webcam video as input, which is processed all locally in real-time and
-never leaves your device.
-
-![visualizer_runner](docs/images/visualizer_runner.png)
-
-*   [MediaPipe Face Detection](https://viz.mediapipe.dev/demo/face_detection)
-*   [MediaPipe Iris](https://viz.mediapipe.dev/demo/iris_tracking)
-*   [MediaPipe Iris: Depth-from-Iris](https://viz.mediapipe.dev/demo/iris_depth)
-*   [MediaPipe Hands](https://viz.mediapipe.dev/demo/hand_tracking)
-*   [MediaPipe Hands (palm/hand detection only)](https://viz.mediapipe.dev/demo/hand_detection)
-*   [MediaPipe Pose](https://viz.mediapipe.dev/demo/pose_tracking)
-*   [MediaPipe Hair Segmentation](https://viz.mediapipe.dev/demo/hair_segmentation)
-
-## Getting started
-
-Learn how to [install](https://google.github.io/mediapipe/getting_started/install)
-MediaPipe and
-[build example applications](https://google.github.io/mediapipe/getting_started/building_examples),
-and start exploring our ready-to-use
-[solutions](https://google.github.io/mediapipe/solutions/solutions) that you can
-further extend and customize.
-
-The source code is hosted in the
-[MediaPipe Github repository](https://github.com/google/mediapipe), and you can
-run code search using
-[Google Open Source Code Search](https://cs.opensource.google/mediapipe/mediapipe).
-
-## Publications
-
-*   [BlazePose - On-device Real-time Body Pose Tracking](https://ai.googleblog.com/2020/08/on-device-real-time-body-pose-tracking.html)
-    in Google AI Blog
-*   [MediaPipe Iris: Real-time Eye Tracking and Depth Estimation](https://ai.googleblog.com/2020/08/mediapipe-iris-real-time-iris-tracking.html)
-    in Google AI Blog
-*   [MediaPipe KNIFT: Template-based feature matching](https://developers.googleblog.com/2020/04/mediapipe-knift-template-based-feature-matching.html)
-    in Google Developers Blog
-*   [Alfred Camera: Smart camera features using MediaPipe](https://developers.googleblog.com/2020/03/alfred-camera-smart-camera-features-using-mediapipe.html)
-    in Google Developers Blog
-*   [Real-Time 3D Object Detection on Mobile Devices with MediaPipe](https://ai.googleblog.com/2020/03/real-time-3d-object-detection-on-mobile.html)
-    in Google AI Blog
-*   [AutoFlip: An Open Source Framework for Intelligent Video Reframing](https://ai.googleblog.com/2020/02/autoflip-open-source-framework-for.html)
-    in Google AI Blog
-*   [MediaPipe on the Web](https://developers.googleblog.com/2020/01/mediapipe-on-web.html)
-    in Google Developers Blog
-*   [Object Detection and Tracking using MediaPipe](https://developers.googleblog.com/2019/12/object-detection-and-tracking-using-mediapipe.html)
-    in Google Developers Blog
-*   [On-Device, Real-Time Hand Tracking with MediaPipe](https://ai.googleblog.com/2019/08/on-device-real-time-hand-tracking-with.html)
-    in Google AI Blog
-*   [MediaPipe: A Framework for Building Perception Pipelines](https://arxiv.org/abs/1906.08172)
-
-## Videos
-
-*   [YouTube Channel](https://www.youtube.com/c/MediaPipe)
-
-## Events
-
-*   [MediaPipe Seattle Meetup, Google Building Waterside, 13 Feb 2020](https://mediapipe.page.link/seattle2020)
-*   [AI Nextcon 2020, 12-16 Feb 2020, Seattle](http://aisea20.xnextcon.com/)
-*   [MediaPipe Madrid Meetup, 16 Dec 2019](https://www.meetup.com/Madrid-AI-Developers-Group/events/266329088/)
-*   [MediaPipe London Meetup, Google 123 Building, 12 Dec 2019](https://www.meetup.com/London-AI-Tech-Talk/events/266329038)
-*   [ML Conference, Berlin, 11 Dec 2019](https://mlconference.ai/machine-learning-advanced-development/mediapipe-building-real-time-cross-platform-mobile-web-edge-desktop-video-audio-ml-pipelines/)
-*   [MediaPipe Berlin Meetup, Google Berlin, 11 Dec 2019](https://www.meetup.com/Berlin-AI-Tech-Talk/events/266328794/)
-*   [The 3rd Workshop on YouTube-8M Large Scale Video Understanding Workshop,
-    Seoul, Korea ICCV
-    2019](https://research.google.com/youtube8m/workshop2019/index.html)
-*   [AI DevWorld 2019, 10 Oct 2019, San Jose, CA](https://aidevworld.com)
-*   [Google Industry Workshop at ICIP 2019, 24 Sept 2019, Taipei, Taiwan](http://2019.ieeeicip.org/?action=page4&id=14#Google)
-    ([presentation](https://docs.google.com/presentation/d/e/2PACX-1vRIBBbO_LO9v2YmvbHHEt1cwyqH6EjDxiILjuT0foXy1E7g6uyh4CesB2DkkEwlRDO9_lWfuKMZx98T/pub?start=false&loop=false&delayms=3000&slide=id.g556cc1a659_0_5))
-*   [Open sourced at CVPR 2019, 17~20 June, Long Beach, CA](https://sites.google.com/corp/view/perception-cv4arvr/mediapipe)
-
-## Community
-
-*   [Awesome MediaPipe](https://mediapipe.org) - A curated list of awesome
-    MediaPipe related frameworks, libraries and software
-*   [Slack community](https://mediapipe.page.link/joinslack) for MediaPipe users
-*   [Discuss](https://groups.google.com/forum/#!forum/mediapipe) - General
-    community discussion around MediaPipe
-
-## Alpha disclaimer
-
-MediaPipe is currently in alpha at v0.7. We may be still making breaking API
-changes and expect to get to stable APIs by v1.0.
-
-## Contributing
-
-We welcome contributions. Please follow these
-[guidelines](https://github.com/google/mediapipe/blob/master/CONTRIBUTING.md).
-
-We use GitHub issues for tracking requests and bugs. Please post questions to
-the MediaPipe Stack Overflow with a `mediapipe` tag.
-=======
 # SigNN
 
 ## Abstract
 
-The goal of SigNN is to develop a software which is capable of real-time translation of American Sign Langauge (ASL) into English text. Due to various contraints, the scope has been limited to completing reliable translation for 24 of the 26 characters of the alphabet. We achieve this objective using Mediapipe, an alpha-stage framework for building multimodal, cross platform, applied ML pipelines. All data used to train our neurall network was self-collected, aggregated, and analyzed through the use of Google Colab.
+The goal of SigNN is to develop a software which is capable of real-time translation of American Sign Langauge (ASL) into English text. Due to various contraints, the scope has been limited to completing reliable translation for 24 of the 26 characters of the alphabet. We achieve this objective using Mediapipe: an alpha-stage framework for building multimodal, cross platform, applied ML pipelines. All data used to train our neurall network was self-collected, aggregated, and analyzed through the use of scripts written in Google Colab.
 
 ## Contributors
 
@@ -169,7 +17,21 @@ The goal of SigNN is to develop a software which is capable of real-time transla
 
 ## Motivation
 
-There have been many attempts at creating a similar project like ours but none work very well. We knew this was going to be a difficult undertaking which is why we wanted to work on this project. We wanted to make something that would be able to help people communicate and connect with each other regardless of language barriers and sound barriers.
+Developing a tool for sign language translation has been a project many have attempted in the past two decades. A primitive start to the general project of sign language translation was the sign language glove. [In 2002, a MIT student was amongst the first to achive a basic form of translation through the use of a glove.](https://lemelson.mit.edu/resources/ryan-patterson "The system includes a soft, leather glove outfitted with ten sensors that a signer wears on his or her hand, and a small computer that associates each hand position with a corresponding letter. By finger-spelling words using the standard American Sign Language alphabet, each letter would be transmitted to and captured by the processing unit") Since then, many different types of sign langauge golve prototypes have been made. However, gloves have many limitations. One obvious limitation is the impractcality of carrying around such a glove at all times. One less obvious limitation is that sign langauge involves just more than the hands - it involves arm movements and facial expression as well.
+
+As AI and computation power have improved over time, people have attempted to develop a tool for sign language translation through the use of computer vision. Althoguh some attempted to interpertate pixles for sign language translation, this has been found to be very ineffective. The path that is most often taken in the field of sign language is to work with a framework that provides you with an accurate represntation of hands given an image. This simplifies the problem greatly - from "Given an image, what am I signing?" to "Given a series of coordinates, what am I signing?"
+
+There have been a few different frameworks created to detect the position of hands, but the most famous of them is of course, OpenPose. OpenPose not only interprets the hands of an image, but also the arms and face, which are other vital parts of sign langauge translation.
+
+![](https://user-images.githubusercontent.com/49175620/76171514-8e87e900-6149-11ea-8c7e-963cc5c74173.gif)
+
+As impressive as OpenPose is, it faces one major challenge: speed. It is extremely slow and cannot be run on the average smartphone or computer in the forseeable future. By the developers' own measurements, [the model runs at .1 FPS to .3 FPS average depending on the OpenPose model used. ](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/speed_up_openpose.md "The CPU version runs at about 0.3 FPS on the COCO model, and at about 0.1 FPS (i.e., about 15 sec / frame) on the default BODY_25 model."). Such speed is nowhere near sufficient to enable real-time sign language translation. Prehaps if it is run in a powerful, remote server it could work. However, such a server would have an unmaintanably expensive cost per user ratio unless the users would be prepared to pay a monthly subscription. Without the issue of speed, Openpose has been shown to be an effective framework for sign langauge translation and the favorite choice of researchers.
+
+In June 2019, developers at Google first created the repo Mediapipe on GitHub. Mediapipe, unlike OpenPose, is not a just a neural network but is an entire framework for the management and executing of neural networks on streams of data (such as video and audio). Mediapipe is still in alpha stages and lacks much comprehensive documentation. Compared to OpenPose, it should be less effective for sign langauge translation given that the provided model only detects hands and not the entire arm plus face. However, what makes Mediapipe, in practice, more effective than Openpose given its impressive framerate and ability to be run on any enviornment: from computer to smarthpone [to even browser.](https://viz.mediapipe.dev/runner/demos/hand_tracking/hand_tracking.html "Click here for a Mediapipe hand tracking demo")
+
+![](https://raw.githubusercontent.com/google/mediapipe/master/mediapipe/docs/images/mobile/hand_tracking_android_gpu.gif)
+
+Sign language translation has yet to be done comprehensively with Mediapipe, given that it is a brand new and yet-to-be documented technology. Our motivation for this project is **to be among the first to use this promising new technology and apply it to a problem that many have attempted to tackle in the past.**
 
 ## Methodology
 
@@ -193,8 +55,6 @@ While it is limited now, what we have created provides a solid foundation for ad
 And with even more data our accuracy could improve further, as currently our data consists solely of our own team members hands.
 With more time, effort, and resources our project could become a very important part of communication for ASL users.
 
-
-
 ## Summary
 
 We have poured a lot of time and effort into a project we hope can serve to further communication between ASL users and non-ASL users.
@@ -205,9 +65,3 @@ This entire project would not have been possible without the help of every singl
 
 We plan to add words in the future as well as J and Z characters, all of which are motion based rather than static. Even though it serves a greater challenge we believe that we will be able to tackle it.
 Another portion of our future plan is to collect more data, both to increase the accuracy of the 24 letters as well as to allow us to extend into words.
-
-
-
-
-
->>>>>>> Add files via upload
