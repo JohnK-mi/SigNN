@@ -3,7 +3,7 @@
 
 ## Abstract
 
-The goal of SigNN is to develop a software which is capable of real-time translation of American Sign language (ASL) into English text. Due to various constraints, the scope has been limited to completing reliable translation for 24 of the 26 characters of the alphabet. We achieve this objective using Mediapipe: an alpha-stage framework for building multi-modal, cross platform, applied ML pipelines. All data used to train our neural network was self-collected, aggregated, and analyzed through the use of scripts written in Google Colab.
+The goal of SigNN is to develop a software which is capable of real-time translation of American Sign Language (ASL) into English text. Due to various constraints, the scope has been limited to completing reliable translation for 24 of the 26 characters of the alphabet. We achieve this objective using Mediapipe: an alpha-stage framework for building multi-modal, cross platform, applied ML pipelines. All data used to train our neural network was self-collected, aggregated, and analyzed through the use of scripts written in Google Colab.
 
 ## Contributors
 
