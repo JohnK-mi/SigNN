@@ -26,41 +26,24 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
-            std::cout << "[";
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
-            std::vector<std::vector<NormalizedLandmark>> hands = cc -> Inputs().Tag(NormalizedLandmarks).Get<std::vector<std::vector<NormalizedLandmark>>>();
-            if(firstwrite){
-                std::cout << "[";
-                firstwrite = false;
-            }else{
-                std::cout << ", [";
-            }
-            
+            std::vector<std::vector<NormalizedLandmark>> hands = cc -> Inputs().Tag(NormalizedLandmarks).Get<std::vector<std::vector<NormalizedLandmark>>>();           
             for(int i = 0; i < hands.size(); i++){
                 auto hand = hands.at(i);
-                std::cout << "[";
                 for(int j = 0; j < hand.size(); j++){
-                    std::cout << hand.at(j).x() << ", " <<  hand.at(j).y();
+                    std::cout << hand.at(j).x() << " " <<  hand.at(j).y();
                     if(j + 1 < hand.size()){
-                        std::cout << ", ";
+                        std::cout << " ";
                     }
-                }
-                if(i + 1 < hands.size()){
-                    std::cout << "],";
-                }else{
-                    std::cout << "]";
-                }
-                
-
+                }             
             }
-            std::cout << "]";
+            std::cout << "\n";
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Close(CalculatorContext* cc){
             LOG(INFO) << "Closing logger";
-            std::cout << "]";
             return ::mediapipe::OkStatus();
         }
 
