@@ -33,13 +33,13 @@ namespace mediapipe{
             std::vector<std::vector<NormalizedLandmark>> hands = cc -> Inputs().Tag(NormalizedLandmarks).Get<std::vector<std::vector<NormalizedLandmark>>>();
             switch(hands.size()){
                 case 0:
-                    std::cout << "No hands detected!\n";
+                    LOG(WARNING) << "No hands detected!\n";
                     cc->Outputs().Tag(NormalizedLandmarks).AddPacket(cc->Inputs().Tag(NormalizedLandmarks).Value());
                     return ::mediapipe::OkStatus();
                 case 1:
                     break;
                 default:
-                    std::cout << hands.size() << " hands detected!\n";
+                    LOG(WARNING) << hands.size() << " hands detected!\n";
                     cc->Outputs().Tag(NormalizedLandmarks).AddPacket(cc->Inputs().Tag(NormalizedLandmarks).Value());
                     return ::mediapipe::OkStatus();
             }
