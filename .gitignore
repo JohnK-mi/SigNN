@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.pyc
 **/__pycache__/*
 **/log/**/*.json
@@ -7,5 +8,9 @@ bazel-genfiles
 bazel-mediapipe-ioss
 bazel-out
 bazel-testlogs
+=======
+bazel-*
+>>>>>>> 67bd8a2bf04072b853142e7739466dea218ae007
 mediapipe/MediaPipe.xcodeproj
 mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
+mediapipe/provisioning_profile.mobileprovision
