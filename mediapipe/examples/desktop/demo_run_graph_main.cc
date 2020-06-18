@@ -13,6 +13,7 @@
 // limitations under the License.
 //
 // An example of sending OpenCV webcam frames into a MediaPipe graph.
+#include <cstdlib>
 
 #include "mediapipe/framework/calculator_framework.h"
 #include "mediapipe/framework/formats/image_frame.h"
@@ -98,6 +99,11 @@ DEFINE_bool(render_video, true,
   }
    else if (FLAGS_render_video) {
     cv::namedWindow(kWindowName, /*flags=WINDOW_AUTOSIZE*/ 1);
+#if (CV_MAJOR_VERSION >= 3) && (CV_MINOR_VERSION >= 2)
+    capture.set(cv::CAP_PROP_FRAME_WIDTH, 640);
+    capture.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
+    capture.set(cv::CAP_PROP_FPS, 30);
+#endif
   }
 
   LOG(INFO) << "Start running the calculator graph.";
@@ -227,9 +233,11 @@ DEFINE_bool(render_video, true,
     camera_frame.copyTo(input_frame_mat);
 
     // Send image packet into the graph.
+    size_t frame_timestamp_us =
+        (double)cv::getTickCount() / (double)cv::getTickFrequency() * 1e6;
     MP_RETURN_IF_ERROR(graph.AddPacketToInputStream(
         kInputStream, mediapipe::Adopt(input_frame.release())
-                          .At(mediapipe::Timestamp(frame_timestamp++))));
+                          .At(mediapipe::Timestamp(frame_timestamp_us))));
 
     // Get the graph result packet, or stop if that fails.
       mediapipe::Packet packet;
@@ -264,8 +272,9 @@ int main(int argc, char** argv) {
   ::mediapipe::Status run_status = RunMPPGraph();
   if (!run_status.ok()) {
     LOG(ERROR) << "Failed to run the graph: " << run_status.message();
+    return EXIT_FAILURE;
   } else {
     LOG(INFO) << "Success!";
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
