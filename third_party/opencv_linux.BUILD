@@ -7,7 +7,9 @@ exports_files(["LICENSE"])
 
 # The following build rule assumes that OpenCV is installed by
 # 'apt-get install libopencv-core-dev libopencv-highgui-dev \'
-# '                libopencv-imgproc-dev libopencv-video-dev' on Debian/Ubuntu.
+# '                libopencv-calib3d-dev libopencv-features2d-dev \'
+# '                libopencv-imgproc-dev libopencv-video-dev'
+# on Debian buster/Ubuntu 18.04.
 # If you install OpenCV separately, please modify the build rule accordingly.
 cc_library(
     name = "opencv",
@@ -24,7 +26,7 @@ cc_library(
         ],
     ),
     hdrs = glob(["include/opencv2/**/*.h*"]),
-    includes = ["include"],
+    includes = ["include/"],
     linkstatic = 1,
     visibility = ["//visibility:public"],
 )
