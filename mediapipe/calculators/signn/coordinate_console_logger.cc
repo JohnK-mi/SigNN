@@ -22,19 +22,19 @@ namespace mediapipe{
         ~CoordinateConsoleLoggerCalculator(){};
 
         static ::mediapipe::Status GetContract(CalculatorContract* cc){
-            cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<std::vector<NormalizedLandmark>>>();
+            cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
-            std::vector<std::vector<NormalizedLandmark>> hands = cc -> Inputs().Tag(NormalizedLandmarks).Get<std::vector<std::vector<NormalizedLandmark>>>();           
+            std::vector<NormalizedLandmarkList> hands = cc->Inputs().Tag(NormalizedLandmarks).Get<std::vector<NormalizedLandmarkList>>();
             for(int i = 0; i < hands.size(); i++){
                 auto hand = hands.at(i);
-                for(int j = 0; j < hand.size(); j++){
-                    std::cout << hand.at(j).x() << " " <<  hand.at(j).y();
-                    if(j + 1 < hand.size()){
+                for(int j = 0; j < hand.landmark_size(); j++){
+                    std::cout << hand.landmark(j).x() << " " <<  hand.landmark(j).y() << " " << hand.landmark(j).z();
+                    if(j + 1 < hand.landmark_size()){
                         std::cout << " ";
                     }
                 }             
