@@ -18,28 +18,30 @@ model_abs_path = os.path.join(os.getcwd(), MODEL_RELATIVE_PATH)
 def plot(hand, word, save=False):
     assert isinstance(save, bool)
     COLORS = ['red', 'blue', 'green', 'purple', 'black']
-    x = [max(xx for xx in hand[::2]) - x for x in hand[::2]]
-    y = [max(yy for yy in hand[1::2]) - y for y in hand[1::2]]
+    x = [max(xx for xx in hand[::3]) - x for x in hand[::3]]
+    y = [max(yy for yy in hand[1::2]) - y for y in hand[1::3]]
+    z = [max(zz for zz in hand[1::2]) - z for z in hand[2::3]]
 
     text = [z for z in range(0, len(x))]
     assert len(x) == len(y), "Uneven x and y coordnates. {} x and {} y".format(len(x), len(y))
+    assert len(y) == len(z), "Uneven y and z coordnates. {} y and {} z".format(len(x), len(y))
     plt.scatter(x, y)
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.axis('square')
     plt.title(word)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
 
     for i, txt in enumerate(text):
         plt.annotate(txt, (x[i], y[i]))
 
     for finger, color in zip(range(1, 21, 4), COLORS):
-        plt.plot(x[finger:finger+4], y[finger:finger+4], 'ro-', color=color)
+        plt.plot(x[finger:finger+4], y[finger:finger+4], z[finger:finger+4], 'ro-', color=color)
 
     if save:
         plt.savefig(os.path.join("image_means", word + '.png'))
     else:
         plt.show()
     plt.close()
+
 
 def loadTFModel(path):
     # Load TFLite model and allocate tensors.
@@ -51,17 +53,39 @@ def loadTFModel(path):
 
     return interpreter
 
-def dataToZscoredata(data):
-    x_values = zscore(data[::2])
+def dataToZscoredata3D(data):
+    x_values = zscore(data[::3])
+    y_values = zscore(data[1::3])
+    z_values = zscore(data[2::3])
+    full_values = np.zeros(shape=(63))
+    for i in range(len(x_values)):
+        full_values[i*2] = (x_values[i])
+        full_values[i*2 + 1] = (y_values[i])
+        full_values[i*2 + 2] = (z_values[i])
+    return full_values
+
+def downscaleDataToZscoredata3Dto2D(data):
+    x_values = zscore(data[::3])
     y_values = zscore(data[1::2])
+    z_values = zscore(data[2::3])
     full_values = np.zeros(shape=(42))
     for i in range(len(x_values)):
         full_values[i*2] = (x_values[i])
         full_values[i*2 + 1] = (y_values[i])
     return full_values
 
+def downscaleDataTo2D(data):
+    x_values = zscore(data[::3])
+    y_values = zscore(data[1::3])
+    full_values = np.zeros(shape=(42))
+    for i in range(len(x_values)):
+        full_values[i*2] = (x_values[i])
+        full_values[i*2 + 1] = (y_values[i])
+    return x_values + y_values
+
 def invokeModel(interpreter, data):
     # Test model on random input data.
+    # data = downscaleDataTo2D(data)
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     input_shape = input_details[0]['shape']
