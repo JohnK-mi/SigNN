@@ -27,7 +27,7 @@ namespace mediapipe{
         ~CoordinateLoggerCalculator(){};
 
         static ::mediapipe::Status GetContract(CalculatorContract* cc){
-            cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<std::vector<NormalizedLandmark>>>();
+            cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
@@ -74,7 +74,7 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
-            std::vector<std::vector<NormalizedLandmark>> hands = cc -> Inputs().Tag(NormalizedLandmarks).Get<std::vector<std::vector<NormalizedLandmark>>>();
+            std::vector<NormalizedLandmarkList> hands = cc->Inputs().Tag(NormalizedLandmarks).Get<std::vector<NormalizedLandmarkList>>();
             if(firstwrite){
                 file << "[";
                 firstwrite = false;
@@ -85,9 +85,9 @@ namespace mediapipe{
             for(int i = 0; i < hands.size(); i++){
                 auto hand = hands.at(i);
                 file << "[";
-                for(int j = 0; j < hand.size(); j++){
-                    file << std::fixed << hand.at(j).x() << ", " << std::fixed << hand.at(j).y();
-                    if(j + 1 < hand.size()){
+                for(int j = 0; j < hand.landmark_size(); j++){
+                    file << std::fixed << hand.landmark(j).x() << ", " << std::fixed << hand.landmark(j).y() << ", " << std::fixed << hand.landmark(j).z();
+                    if(j + 1 < hand.landmark_size()){
                         file << ", ";
                     }
                 }

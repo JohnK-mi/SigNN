@@ -16,25 +16,30 @@
 
 #include <vector>
 
+#include "mediapipe/framework/formats/detection.pb.h"
 #include "mediapipe/framework/formats/landmark.pb.h"
+#include "mediapipe/framework/formats/matrix.h"
 #include "mediapipe/framework/formats/rect.pb.h"
 
 namespace mediapipe {
 
-// A calculator to process std::vector<NormalizedLandmark>.
-typedef BeginLoopCalculator<std::vector<::mediapipe::NormalizedLandmark>>
-    BeginLoopNormalizedLandmarkCalculator;
-REGISTER_CALCULATOR(BeginLoopNormalizedLandmarkCalculator);
-
-// A calculator to process std::vector<std::vector<NormalizedLandmark>>.
-typedef BeginLoopCalculator<
-    std::vector<std::vector<::mediapipe::NormalizedLandmark>>>
-    BeginLoopNormalizedLandmarksVectorCalculator;
-REGISTER_CALCULATOR(BeginLoopNormalizedLandmarksVectorCalculator);
+// A calculator to process std::vector<NormalizedLandmarkList>.
+typedef BeginLoopCalculator<std::vector<::mediapipe::NormalizedLandmarkList>>
+    BeginLoopNormalizedLandmarkListVectorCalculator;
+REGISTER_CALCULATOR(BeginLoopNormalizedLandmarkListVectorCalculator);
 
 // A calculator to process std::vector<NormalizedRect>.
 typedef BeginLoopCalculator<std::vector<::mediapipe::NormalizedRect>>
     BeginLoopNormalizedRectCalculator;
 REGISTER_CALCULATOR(BeginLoopNormalizedRectCalculator);
+
+// A calculator to process std::vector<Detection>.
+typedef BeginLoopCalculator<std::vector<::mediapipe::Detection>>
+    BeginLoopDetectionCalculator;
+REGISTER_CALCULATOR(BeginLoopDetectionCalculator);
+
+// A calculator to process std::vector<Matrix>.
+typedef BeginLoopCalculator<std::vector<Matrix>> BeginLoopMatrixCalculator;
+REGISTER_CALCULATOR(BeginLoopMatrixCalculator);
 
 }  // namespace mediapipe
