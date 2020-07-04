@@ -3,7 +3,6 @@
 #include "mediapipe/framework/formats/detection.pb.h"
 #include "mediapipe/framework/port/ret_check.h"
 
-
 #include <vector>
 #include <string>
 #include <iostream>
