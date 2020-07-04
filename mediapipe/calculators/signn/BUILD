@@ -114,3 +114,26 @@ cc_library(
     ],
     alwayslink = 1
 )
+
+cc_library(
+    name = "fps_classes",
+    srcs = ["fps_classes.h", "fps_classes.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+    ],
+    alwayslink = 1
+)
+cc_library(
+    name = "fps_calculator",
+    srcs = ["fps_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/calculators/signn:fps_classes",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework/formats:location_data_cc_proto",
+        "//mediapipe/framework/formats:detection_cc_proto",
+        "//mediapipe/framework/deps:file_path",    
+    ],
+    alwayslink = 1
+)
