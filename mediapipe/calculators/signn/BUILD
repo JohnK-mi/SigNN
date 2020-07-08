@@ -20,26 +20,6 @@ package(default_visibility = ["//visibility:private"])
 load("//mediapipe/framework/port:build_config.bzl", "mediapipe_cc_proto_library")
 
 
-cc_library(
-    name = "python_caller_calculator",
-    srcs = ["python_caller_calculator.cc"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//mediapipe/framework:calculator_framework",
-        "//mediapipe/framework/formats:landmark_cc_proto",
-        "//mediapipe/framework/formats:location_data_cc_proto",
-        "//mediapipe/framework/formats:detection_cc_proto",
-        "//mediapipe/framework/deps:file_path",
-        "@python_linux//:python36-lib",
-    ] + select({
-        "//conditions:default": [
-            "//mediapipe/framework/port:file_helpers",
-        ],
-    }),
-    data = ["main.py"],
-    alwayslink = 1,
-)
-
 proto_library(
     name = "coordinate_logger_calculator_proto",
     srcs = ["coordinate_logger_calculator.proto"],
