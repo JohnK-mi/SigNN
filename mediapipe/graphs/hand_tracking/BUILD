@@ -78,7 +78,6 @@ cc_library(
         ":desktop_offline_calculators",
         "//mediapipe/calculators/util:association_norm_rect_calculator",
         "//mediapipe/calculators/util:collection_has_min_size_calculator",
-        "//mediapipe/calculators/signn:python_caller_calculator",
         "//mediapipe/calculators/signn:logger_calculator",
         "//mediapipe/calculators/signn:console_logger_calculator",  
         "//mediapipe/calculators/signn:coordinate_modifiers",      

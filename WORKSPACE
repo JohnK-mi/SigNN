@@ -283,7 +283,6 @@ http_archive(
     build_file = "@//third_party:google_toolbox_for_mac.BUILD",
 )
 
-<<<<<<< HEAD
 # Maven dependencies.
 
 RULES_JVM_EXTERNAL_TAG = "3.2"
@@ -363,21 +362,3 @@ http_archive(
 )
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
-tf_workspace(tf_repo_name = "org_tensorflow")
-=======
-#python time
-
-new_local_repository(
-    name = "python_linux",
-    path = "/usr",
-    build_file_content = """
-cc_library(
-    name = "python36-lib",
-    srcs = ["lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6.so"],
-    hdrs = glob(["include/python3.6/*.h"]),
-    includes = ["include/python3.6"],
-    visibility = ["//visibility:public"]
-)
-    """
-)
->>>>>>> Create Signn Calculator and python coordinate output
