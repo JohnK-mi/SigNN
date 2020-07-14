@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SigNN
 
 ## Abstract
