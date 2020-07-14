@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SigNN
 
 ## Abstract
@@ -309,4 +308,3 @@ We welcome contributions. Please follow these
 
 We use GitHub issues for tracking requests and bugs. Please post questions to
 the MediaPipe Stack Overflow with a `mediapipe` tag.
->>>>>>> 67bd8a2bf04072b853142e7739466dea218ae007
