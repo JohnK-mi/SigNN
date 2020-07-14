@@ -117,3 +117,18 @@ cc_library(
     ],
     alwayslink = 1
 )
+
+cc_library(
+    name = "point_velocity_calculator",
+    srcs = ["point_velocity_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/calculators/signn:fps_classes",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework/formats:location_data_cc_proto",
+        "//mediapipe/framework/formats:detection_cc_proto",
+        "//mediapipe/framework/deps:file_path",    
+    ],
+    alwayslink = 1
+)
