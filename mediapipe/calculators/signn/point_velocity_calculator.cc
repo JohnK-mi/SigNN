@@ -27,12 +27,31 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
+            for(int i = 0; i <= 63; i++){
+                hand_history.push_back(0);
+            }
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
             std::vector<NormalizedLandmarkList> hands = cc->Inputs().Tag(NormalizedLandmarks).Get<std::vector<NormalizedLandmarkList>>();
+            double fps = cc->Inputs().Tag(CoordinateFPS).Get<double>();
+            double time_since_last_frame = 1/fps;
 
-
+            if(hands.size() == 0){
+                return ::mediapipe::OkStatus();
+            }
+            auto hand = hands.at(0);
+            double distance = 0;
+            for(int i = 0; i < hand.landmark_size(); i++){
+                distance += abs(hand.landmark(i).x() - hand_history.at(i * 3));
+                distance += abs(hand.landmark(i).y() - hand_history.at(i * 3 + 1));
+                distance += abs(hand.landmark(i).z() - hand_history.at(i * 3 + 2));
+                hand_history.at(i * 3) = hand.landmark(i).x();
+                hand_history.at(i * 3 + 1) = hand.landmark(i).y();
+                hand_history.at(i * 3 + 2) = hand.landmark(i).z();
+            }
+            distance /= fps;
+            LOG(INFO) << "Distance: " << distance << "\n"; 
  
             return ::mediapipe::OkStatus();
         }
@@ -40,7 +59,7 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         private:
-        std::vector<std::vector<float>> hand_history;
+        std::vector<double> hand_history;
 
 
     };
