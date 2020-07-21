@@ -12,7 +12,7 @@ MODEL_RELATIVE_PATH = "signn_model/model.tflite"
 
 model_abs_path = os.path.join(os.getcwd(), MODEL_RELATIVE_PATH)
 
-
+# hi
 
 
 def plot(hand, word, save=False):
