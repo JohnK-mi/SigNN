@@ -60,7 +60,12 @@ node {
 node {
   calculator: "FPSCalculator",
   input_stream: "LANDMARKS:multi_hand_landmarks"
-  output_stream: "COORDINATE_FPS:fps"
+  output_stream: "DOUBLE:fps"
+}
+
+node {
+  calculator: "DoubleLoggerCalculator"
+  input_stream: "DOUBLE:fps"
 }
 
 # Caches a hand rectangle fed back from MultiHandLandmarkSubgraph, and upon the

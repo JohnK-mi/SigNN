@@ -15,7 +15,7 @@ namespace mediapipe{
 
     namespace{
         constexpr char NormalizedLandmarks[] = "LANDMARKS";
-        constexpr char CoordinateFPS[] = "COORDINATE_FPS";
+        constexpr char DOUBLE[] = "DOUBLE";
     }
 
     class FPSCalculator : public CalculatorBase {
@@ -25,7 +25,7 @@ namespace mediapipe{
 
         static ::mediapipe::Status GetContract(CalculatorContract* cc){
             cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
-            cc->Outputs().Tag(CoordinateFPS).Set<double>();
+            cc->Outputs().Tag(DOUBLE).Set<double>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
@@ -35,9 +35,8 @@ namespace mediapipe{
         ::mediapipe::Status Process(CalculatorContext* cc){
             history.push_back(clock());
             double average_fps = history.average_fps();  
-            LOG(INFO) << average_fps;
             std::unique_ptr<double> output_stream_collection = std::make_unique<double>(average_fps); 
-            cc -> Outputs().Tag(CoordinateFPS).Add(output_stream_collection.release(), cc->InputTimestamp());
+            cc -> Outputs().Tag(DOUBLE).Add(output_stream_collection.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Close(CalculatorContext* cc){

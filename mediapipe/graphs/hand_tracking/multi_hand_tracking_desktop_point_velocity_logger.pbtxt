@@ -60,14 +60,31 @@ node {
 node {
   calculator: "FPSCalculator",
   input_stream: "LANDMARKS:multi_hand_landmarks"
-  output_stream: "COORDINATE_FPS:fps"
+  output_stream: "DOUBLE:fps"
 }
 
 
 node {
   calculator: "PointVelocityCalculator"
-  input_stream: "COORDINATE_FPS:fps"
+  input_stream: "DOUBLE:fps"
   input_stream: "LANDMARKS:multi_hand_landmarks"
+  output_stream: "DOUBLE:velocity"
+}
+
+node{
+  calculator: "AverageDoubleCalculator"
+  input_stream: "DOUBLE:velocity"
+  output_stream: "DOUBLE:average_velocity"
+  node_options: {
+    [type.googleapis.com/mediapipe.AverageDoubleCalculatorOptions] {
+      average_of_x_frames: 7
+    }
+  }
+}
+
+node {
+  calculator: "DoubleLoggerCalculator"
+  input_stream: "DOUBLE:velocity"
 }
 
 # Caches a hand rectangle fed back from MultiHandLandmarkSubgraph, and upon the
