@@ -28,12 +28,28 @@ proto_library(
         "//mediapipe/framework:calculator_proto",
     ],
 )
+proto_library(
+    name = "average_double_calculator_proto",
+    srcs = ["average_double_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
     srcs = ["coordinate_logger_calculator.proto"],
     cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
     visibility = ["//visibility:public"],
     deps = [":coordinate_logger_calculator_proto"],
+)
+mediapipe_cc_proto_library(
+    name = "average_double_calculator_cc_proto",
+    srcs = ["average_double_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":average_double_calculator_proto"],
 )
 
 cc_library(
@@ -104,6 +120,15 @@ cc_library(
     alwayslink = 1
 )
 cc_library(
+    name = "double_logger",
+    srcs = ["double_logger.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+    ],
+    alwayslink = 1
+)
+cc_library(
     name = "fps_calculator",
     srcs = ["fps_calculator.cc"],
     visibility = ["//visibility:public"],
@@ -114,6 +139,16 @@ cc_library(
         "//mediapipe/framework/formats:location_data_cc_proto",
         "//mediapipe/framework/formats:detection_cc_proto",
         "//mediapipe/framework/deps:file_path",    
+    ],
+    alwayslink = 1
+)
+cc_library(
+    name = "average_double_calculator",
+    srcs = ["average_double_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        ":average_double_calculator_cc_proto",
     ],
     alwayslink = 1
 )

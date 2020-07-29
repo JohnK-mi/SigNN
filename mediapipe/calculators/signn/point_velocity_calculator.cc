@@ -13,7 +13,7 @@ namespace mediapipe{
 
     namespace{
         constexpr char NormalizedLandmarks[] = "LANDMARKS";
-        constexpr char CoordinateFPS[] = "COORDINATE_FPS";
+        constexpr char DOUBLE[] = "DOUBLE";
     }
 
     class PointVelocityCalculator : public CalculatorBase {
@@ -23,7 +23,8 @@ namespace mediapipe{
 
         static ::mediapipe::Status GetContract(CalculatorContract* cc){
             cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
-            cc->Inputs().Tag(CoordinateFPS).Set<double>();
+            cc->Inputs().Tag(DOUBLE).Set<double>();
+            cc->Outputs().Tag(DOUBLE).Set<double>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
@@ -34,7 +35,7 @@ namespace mediapipe{
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
             std::vector<NormalizedLandmarkList> hands = cc->Inputs().Tag(NormalizedLandmarks).Get<std::vector<NormalizedLandmarkList>>();
-            double fps = cc->Inputs().Tag(CoordinateFPS).Get<double>();
+            double fps = cc->Inputs().Tag(DOUBLE).Get<double>();
             double time_since_last_frame = 1/fps;
 
             if(hands.size() == 0){
@@ -51,8 +52,9 @@ namespace mediapipe{
                 hand_history.at(i * 3 + 2) = hand.landmark(i).z();
             }
             distance /= fps;
-            LOG(INFO) << "Distance: " << distance << "\n"; 
- 
+
+            std::unique_ptr<double> output_stream_collection = std::make_unique<double>(distance); 
+            cc -> Outputs().Tag(DOUBLE).Add(output_stream_collection.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Close(CalculatorContext* cc){
