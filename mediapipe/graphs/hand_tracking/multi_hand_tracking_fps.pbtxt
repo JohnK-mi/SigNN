@@ -57,17 +57,6 @@ node {
   output_stream: "NORM_RECTS:multi_hand_rects_from_landmarks"
 }
 
-node {
-  calculator: "FPSCalculator",
-  input_stream: "LANDMARKS:multi_hand_landmarks"
-  output_stream: "DOUBLE:fps"
-}
-
-node {
-  calculator: "DoubleLoggerCalculator"
-  input_stream: "DOUBLE:fps"
-}
-
 # Caches a hand rectangle fed back from MultiHandLandmarkSubgraph, and upon the
 # arrival of the next input image sends out the cached rectangle with the
 # timestamp replaced by that of the input image, essentially generating a packet
