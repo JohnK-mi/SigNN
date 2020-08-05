@@ -131,6 +131,21 @@ mediapipe_simple_subgraph(
     ],
 )
 
+
+mediapipe_simple_subgraph(
+    name = "multi_hand_renderer_cpu_fps",
+    graph = "multi_hand_renderer_cpu_fps.pbtxt",
+    register_as = "MultiHandRendererFPSSubgraph",
+    deps = [
+        "//mediapipe/calculators/core:begin_loop_calculator",
+        "//mediapipe/calculators/core:end_loop_calculator",
+        "//mediapipe/calculators/util:annotation_overlay_calculator",
+        "//mediapipe/calculators/util:detections_to_render_data_calculator",
+        "//mediapipe/calculators/util:landmarks_to_render_data_calculator",
+        "//mediapipe/calculators/util:rect_to_render_data_calculator",
+    ],
+)
+
 mediapipe_simple_subgraph(
     name = "hand_detection_gpu",
     graph = "hand_detection_gpu.pbtxt",

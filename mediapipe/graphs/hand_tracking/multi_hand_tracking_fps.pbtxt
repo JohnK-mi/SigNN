@@ -104,7 +104,7 @@ node {
 # Subgraph that renders annotations and overlays them on top of the input
 # images (see multi_hand_renderer_cpu.pbtxt).
 node {
-  calculator: "MultiHandRendererSubgraph"
+  calculator: "MultiHandRendererFPSSubgraph"
   input_stream: "IMAGE:input_video"
   input_stream: "DETECTIONS:multi_palm_detections"
   input_stream: "LANDMARKS:multi_hand_landmarks"
