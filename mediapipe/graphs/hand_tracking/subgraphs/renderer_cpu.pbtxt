@@ -111,6 +111,7 @@ node {
   }
 }
 
+
 # Draws annotations and overlays them on top of the input images.
 node {
   calculator: "AnnotationOverlayCalculator"
