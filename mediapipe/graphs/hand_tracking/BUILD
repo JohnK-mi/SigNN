@@ -86,9 +86,12 @@ cc_library(
         "//mediapipe/calculators/signn:double_logger",
         "//mediapipe/calculators/signn:point_velocity_calculator",
         "//mediapipe/calculators/signn:average_double_calculator",
+        "//mediapipe/calculators/signn:string_to_render_data_calculator",
+        "//mediapipe/calculators/signn:double_to_string_calculator",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_detection_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_landmark_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_cpu",
+        "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_cpu_fps",
     ],
 )
 

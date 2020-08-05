@@ -48,6 +48,8 @@ constexpr char kInputVectorTag[] = "VECTOR";
 constexpr char kInputFrameTagGpu[] = "IMAGE_GPU";
 constexpr char kOutputFrameTagGpu[] = "IMAGE_GPU";
 
+// constexpr char RENDER_DATA[] = "RENDER_DATA";
+
 enum { ATTRIB_VERTEX, ATTRIB_TEXTURE_POSITION, NUM_ATTRIBUTES };
 
 // Round up n to next multiple of m.
@@ -205,6 +207,8 @@ REGISTER_CALCULATOR(AnnotationOverlayCalculator);
     }
   }
 
+  // cc->Inputs().Tag(RENDER_DATA).Set<RenderData>();
+
   // Rendered image.
 #if !defined(MEDIAPIPE_DISABLE_GPU)
   if (cc->Outputs().HasTag(kOutputFrameTagGpu)) {
@@ -295,6 +299,11 @@ REGISTER_CALCULATOR(AnnotationOverlayCalculator);
 
   // Reset the renderer with the image_mat. No copy here.
   renderer_->AdoptImage(image_mat.get());
+
+
+  // // Render the given RENDER_DATA tag for SigNN
+  // auto signn_render = cc->Inputs().Tag(RENDER_DATA).Get<RenderData>();
+  // renderer_->RenderDataOnImage(signn_render);
 
   // Render streams onto render target.
   for (CollectionItemId id = cc->Inputs().BeginId(); id < cc->Inputs().EndId();

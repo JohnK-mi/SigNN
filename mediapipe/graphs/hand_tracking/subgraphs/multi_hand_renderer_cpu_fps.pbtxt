@@ -1,6 +1,6 @@
 # MediaPipe multi-hand tracking rendering subgraph.
 
-type: "MultiHandRendererSubgraph"
+type: "MultiHandRendererFPSSubgraph"
 
 input_stream: "IMAGE:input_image"
 # A vector of NormalizedLandmarks, one for each hand.
