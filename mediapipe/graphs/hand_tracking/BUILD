@@ -55,6 +55,9 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_detection_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_landmark_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:renderer_gpu",
+        "//mediapipe/calculators/signn:string_to_render_data_calculator",
+        "//mediapipe/calculators/signn:double_to_string_calculator",
+        "//mediapipe/calculators/signn:fps_calculator",
     ],
 )
 

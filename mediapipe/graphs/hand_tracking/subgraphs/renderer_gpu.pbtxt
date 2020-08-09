@@ -111,6 +111,27 @@ node {
   }
 }
 
+
+node {
+  calculator: "FPSCalculatorOneHand",
+  input_stream: "LANDMARKS:landmarks"
+  output_stream: "DOUBLE:fps"
+}
+
+node {
+  calculator: "DoubleToStringCalculator",
+  input_stream: "DOUBLE:fps",
+  output_stream: "STRING:fps_string"
+}
+
+node {
+  calculator: "StringToRenderDataCalculator",
+  input_stream: "STRING:fps_string",
+  output_stream: "RENDER_DATA:fps_render_data"
+}
+
+
+
 # Draws annotations and overlays them on top of the input images.
 node {
   calculator: "AnnotationOverlayCalculator"
@@ -118,6 +139,7 @@ node {
   input_stream: "detection_render_data"
   input_stream: "landmark_render_data"
   input_stream: "handedness_render_data"
+  input_stream: "fps_render_data"
   input_stream: "rect_render_data"
   output_stream: "IMAGE_GPU:output_image"
 }
