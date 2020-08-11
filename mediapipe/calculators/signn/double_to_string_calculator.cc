@@ -28,6 +28,7 @@ namespace mediapipe{
         ::mediapipe::Status Process(CalculatorContext* cc){
             double as_double = cc->Inputs().Tag(DOUBLE).Get<double>();
             std::string as_string = std::to_string(as_double);
+            as_string = as_string.substr(0, as_string.size()-3);
             std::unique_ptr<std::string> output_stream_collection = std::make_unique<std::string>(as_string); 
             cc -> Outputs().Tag(STRING).Add(output_stream_collection.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();

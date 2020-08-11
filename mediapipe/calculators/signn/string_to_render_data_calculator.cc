@@ -39,7 +39,7 @@ namespace mediapipe{
             text->set_display_text(given_string);
             text->set_font_height(50);
             text->set_normalized(false);
-            text->set_left(100);
+            text->set_left(300);
             text->set_baseline(450);
             // Normalized coordinates must be between 0.0 and 1.0, if they are used.
             cc->Outputs().Tag(kRenderDataTag).Add(render_data.release(), cc->InputTimestamp());
