@@ -56,27 +56,6 @@ namespace mediapipe{
 
             std::unique_ptr<Matrix> output_stream_collection = std::make_unique<Matrix>(bob); 
             cc -> Outputs().Tag(LandmarkMatrix).Add(output_stream_collection.release(), cc->InputTimestamp());
-
-            // LOG(INFO) << "MATRIX" << bob.rows() << ", " << bob.cols() << bob(0, 0);
-            // LOG(INFO) << bob(0, 0) << ", " << bob(1, 0) << ", "<< bob(0, 1) << ", "<< bob(1, 1) << ", " << bob(2, 1) << ", " << bob(1, 2) << bob(100, 100) << "\n";
-            LOG(INFO) << bob << "\n";
-            
-            // tf::TensorShape tensor_shape = tf::TensorShape({1, 42});
-            
-
-            // auto output_tensors_cpu = ::absl::make_unique<std::vector<tf::Tensor>>();
-            // auto output = output_tensors_cpu->at(0);
-            // tf::Tensor tensore;
-            // if(hands.size() == 0){
-            //     return ::mediapipe::OkStatus();
-            // }
-            // auto hand = hands.at(0);
-            // for(unsigned int i = 0; i < hand.landmark_size(); i++){
-            //     output->tensor<float, 2>()(i) = hand.landmark(i).x();
-            //     output->tensor<float, 2>()(i*2+1) = hand.landmark(i).y();
-            // }
-            // cc->Outputs().Tag(LandmarkMatrix).Add(output.release(), cc->InputTimestamp());
-            
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Close(CalculatorContext* cc){
