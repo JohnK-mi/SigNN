@@ -195,3 +195,30 @@ cc_library(
     ],
     alwayslink = 1
 )
+
+cc_library(
+    name = "landmarks_to_tensor_calculator",
+    srcs = ["landmarks_to_tensor_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/port:status",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework/formats:detection_cc_proto",
+        "@org_tensorflow//tensorflow/core:framework",
+        "//mediapipe/framework/formats:matrix",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "tflite_tensors_to_character_calculator",
+    srcs = ["tflite_tensors_to_character_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/port:ret_check",
+        "@org_tensorflow//tensorflow/lite:framework",
+    ],
+    alwayslink = 1,
+)

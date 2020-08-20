@@ -57,6 +57,42 @@ node {
   output_stream: "NORM_RECTS:multi_hand_rects_from_landmarks"
 }
 
+node {
+  calculator: "ZScoreCalculator"
+  input_stream: "LANDMARKS:multi_hand_landmarks"
+  output_stream: "LANDMARKS:zscore_landmarks"
+}
+
+node {
+  calculator: "LandmarksToTensorCalculator"
+  input_stream: "LANDMARKS:zscore_landmarks"
+  output_stream: "MATRIX:landmarks"
+}
+
+node {
+  calculator: "TfLiteConverterCalculator"
+  input_stream: "MATRIX:landmarks"
+  output_stream: "TENSORS:landmark_tensors"
+}
+
+
+node {
+  calculator: "TfLiteInferenceCalculator"
+  input_stream: "TENSORS:landmark_tensors"
+  output_stream: "TENSORS:signn_predictions"
+  node_options: {
+    [type.googleapis.com/mediapipe.TfLiteInferenceCalculatorOptions] {
+      model_path: "signn_model/model.tflite"
+    }
+  }
+}
+
+node {
+  calculator: "TfLiteTensorsToCharacterCalculator"
+  input_stream: "TENSORS:signn_predictions"
+  output_stream: "STRING:static_signn"
+}
+
 # Caches a hand rectangle fed back from MultiHandLandmarkSubgraph, and upon the
 # arrival of the next input image sends out the cached rectangle with the
 # timestamp replaced by that of the input image, essentially generating a packet
@@ -99,5 +135,6 @@ node {
   input_stream: "LANDMARKS:multi_hand_landmarks"
   input_stream: "NORM_RECTS:0:multi_palm_rects"
   input_stream: "NORM_RECTS:1:multi_hand_rects"
+  input_stream: "STRING:static_signn"
   output_stream: "IMAGE:output_video"
 }

@@ -10,6 +10,7 @@ input_stream: "NORM_RECTS:0:multi_palm_rects"
 # A vector of NormalizedRect, one for each hand.
 input_stream: "NORM_RECTS:1:multi_hand_rects"
 # A vector of Detection, one for each hand.
+input_stream: "STRING:static_signn"
 input_stream: "DETECTIONS:palm_detections"
 output_stream: "IMAGE:output_image"
 
@@ -131,25 +132,13 @@ node {
   output_stream: "ITERABLE:multi_hand_landmarks_render_data"
 }
 
-# SigNN Test
 
 node {
-  calculator: "FPSCalculator",
-  input_stream: "LANDMARKS:multi_hand_landmarks"
-  output_stream: "DOUBLE:fps"
+  calculator: "StringToRenderDataCalculator"
+  input_stream: "STRING:static_signn"
+  output_stream: "RENDER_DATA:signn"
 }
 
-node {
-  calculator: "DoubleToStringCalculator",
-  input_stream: "DOUBLE:fps",
-  output_stream: "STRING:fps_string"
-}
-
-node {
-  calculator: "StringToRenderDataCalculator",
-  input_stream: "STRING:fps_string",
-  output_stream: "RENDER_DATA:fps_render_data"
-}
 
 
 # Draws annotations and overlays them on top of the input images. Consumes
@@ -160,7 +149,7 @@ node {
   input_stream: "detection_render_data"
   input_stream: "multi_hand_rects_render_data"
   input_stream: "multi_palm_rects_render_data"
-  input_stream: "fps_render_data"
+  input_stream: "signn"
   input_stream: "VECTOR:0:multi_hand_landmarks_render_data"
   output_stream: "IMAGE:output_image"
 }
