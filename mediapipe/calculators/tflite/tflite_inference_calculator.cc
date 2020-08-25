@@ -296,6 +296,7 @@ bool ShouldUseGpu(CC* cc) {
 
 ::mediapipe::Status TfLiteInferenceCalculator::GetContract(
     CalculatorContract* cc) {
+
   RET_CHECK(cc->Inputs().HasTag(kTensorsTag) ^
             cc->Inputs().HasTag(kTensorsGpuTag));
   RET_CHECK(cc->Outputs().HasTag(kTensorsTag) ^

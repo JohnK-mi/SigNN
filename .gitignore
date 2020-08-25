@@ -1,3 +1,13 @@
+*.pyc
+**/__pycache__/*
+**/log/**/*.json
+mediapipe/provisioning_profile.mobileprovision
+bazel-bin
+bazel-genfiles
+bazel-mediapipe-ioss
+bazel-out
+bazel-testlogs
+=======
 bazel-*
 *.pyc
 **/__pycache__/*
