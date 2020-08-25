@@ -362,3 +362,4 @@ http_archive(
 )
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
+tf_workspace(tf_repo_name = "org_tensorflow")
