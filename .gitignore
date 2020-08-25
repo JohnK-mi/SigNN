@@ -9,6 +9,10 @@ bazel-out
 bazel-testlogs
 =======
 bazel-*
+*.pyc
+**/__pycache__/*
+**/log/**/*.json
+mediapipe/provisioning_profile.mobileprovision
 mediapipe/MediaPipe.xcodeproj
 mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
 mediapipe/provisioning_profile.mobileprovision

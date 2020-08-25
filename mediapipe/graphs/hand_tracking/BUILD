@@ -45,6 +45,13 @@ cc_library(
     ],
 )
 
+mediapipe_binary_graph(
+    name = "hand_tracking_desktop_live_binary_graph",
+    graph = "hand_tracking_desktop_live.pbtxt",
+    output_name = "hand_tracking_desktop_live.binarypb",
+    deps = [":desktop_tflite_calculators"],
+)
+
 cc_library(
     name = "mobile_calculators",
     deps = [
@@ -55,6 +62,9 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_detection_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_landmark_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:renderer_gpu",
+        "//mediapipe/calculators/signn:string_to_render_data_calculator",
+        "//mediapipe/calculators/signn:double_to_string_calculator",
+        "//mediapipe/calculators/signn:fps_calculator",
     ],
 )
 
@@ -81,6 +91,8 @@ cc_library(
         "//mediapipe/calculators/signn:average_double_calculator",
         "//mediapipe/calculators/signn:string_to_render_data_calculator",
         "//mediapipe/calculators/signn:double_to_string_calculator",
+        "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
+        "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_detection_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_landmark_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_cpu",
@@ -99,6 +111,9 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_detection_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_landmark_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_gpu",
+        "//mediapipe/calculators/signn:string_to_render_data_calculator",
+        "//mediapipe/calculators/signn:double_to_string_calculator",
+        "//mediapipe/calculators/signn:fps_calculator",
     ],
 )
 
