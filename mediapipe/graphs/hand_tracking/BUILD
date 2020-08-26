@@ -21,6 +21,45 @@ licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
+exports_files(glob([
+    "*.pbtxt",
+]))
+
+
+cc_library(
+    name = "signn_calculators",
+    deps = [   
+        "//mediapipe/calculators/signn:fps_calculator",
+        "//mediapipe/calculators/signn:double_logger",
+        "//mediapipe/calculators/signn:average_double_calculator",
+        "//mediapipe/calculators/signn:string_to_render_data_calculator",
+        "//mediapipe/calculators/signn:double_to_string_calculator",
+        "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
+    ]
+)
+
+cc_library(
+    name = "signn_multi_handed",
+    deps = [
+        ":signn_calculators",
+        "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_gpu_fps",
+        "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
+        "//mediapipe/calculators/signn:z_score_calculator",
+        "//mediapipe/calculators/signn:coordinate_modifiers", 
+        "//mediapipe/calculators/signn:logger_calculator",
+        "//mediapipe/calculators/signn:console_logger_calculator",   
+    ]
+)
+
+cc_library(
+    name = "signn_single_handed",
+    deps = [
+        ":signn_calculators",
+        "//mediapipe/calculators/signn:point_velocity_calculator",
+        "//mediapipe/graphs/hand_tracking/subgraphs:renderer_gpu_fps",
+    ]
+)
+
 cc_library(
     name = "desktop_offline_calculators",
     deps = [
@@ -42,6 +81,7 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_detection_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_landmark_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:renderer_cpu",
+        ":signn_single_handed",
     ],
 )
 
@@ -62,9 +102,7 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_detection_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:hand_landmark_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:renderer_gpu",
-        "//mediapipe/calculators/signn:string_to_render_data_calculator",
-        "//mediapipe/calculators/signn:double_to_string_calculator",
-        "//mediapipe/calculators/signn:fps_calculator",
+        ":signn_single_handed",
     ],
 )
 
@@ -81,28 +119,17 @@ cc_library(
         ":desktop_offline_calculators",
         "//mediapipe/calculators/util:association_norm_rect_calculator",
         "//mediapipe/calculators/util:collection_has_min_size_calculator",
-        "//mediapipe/calculators/signn:logger_calculator",
-        "//mediapipe/calculators/signn:console_logger_calculator",  
-        "//mediapipe/calculators/signn:coordinate_modifiers",      
-        "//mediapipe/calculators/signn:z_score_calculator",
-        "//mediapipe/calculators/signn:fps_calculator",
-        "//mediapipe/calculators/signn:double_logger",
-        "//mediapipe/calculators/signn:point_velocity_calculator",
-        "//mediapipe/calculators/signn:average_double_calculator",
-        "//mediapipe/calculators/signn:string_to_render_data_calculator",
-        "//mediapipe/calculators/signn:double_to_string_calculator",
-        "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
-        "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_detection_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_landmark_cpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_cpu",
-        "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_cpu_fps",
+        ":signn_multi_handed",
     ],
 )
 
 cc_library(
     name = "multi_hand_mobile_calculators",
     deps = [
+        ":signn_multi_handed",
         "//mediapipe/calculators/core:flow_limiter_calculator",
         "//mediapipe/calculators/core:gate_calculator",
         "//mediapipe/calculators/core:previous_loopback_calculator",
@@ -111,9 +138,6 @@ cc_library(
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_detection_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_landmark_gpu",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_gpu",
-        "//mediapipe/calculators/signn:string_to_render_data_calculator",
-        "//mediapipe/calculators/signn:double_to_string_calculator",
-        "//mediapipe/calculators/signn:fps_calculator",
     ],
 )
 
