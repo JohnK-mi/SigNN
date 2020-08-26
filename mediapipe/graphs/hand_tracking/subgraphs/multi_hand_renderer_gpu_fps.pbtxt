@@ -121,7 +121,7 @@ node {
   }
 }
 
-# SigNN Test
+# SigNN FPS
 
 node {
   calculator: "FPSCalculator"
@@ -138,7 +138,7 @@ node {
 node {
   calculator: "StringToRenderDataCalculator"
   input_stream: "STRING:fps_string"
-  output_stream: "fps_render"
+  output_stream: "RENDER_DATA:fps_render"
 }
 
 
