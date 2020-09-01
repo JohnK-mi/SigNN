@@ -265,3 +265,13 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/util:rect_to_render_data_calculator",
     ],
 )
+
+mediapipe_simple_subgraph(
+    name = "signn_static",
+    graph = "signn_static.pbtxt",
+    register_as = "SigNNStatic",
+    deps = [
+        "//mediapipe/calculators/tflite:tflite_inference_calculator",
+        "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
+    ],
+)

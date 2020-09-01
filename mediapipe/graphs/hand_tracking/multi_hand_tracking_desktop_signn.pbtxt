@@ -58,22 +58,10 @@ node {
 }
 
 node {
-  calculator: "ZScoreCalculator"
+  calculator: "SigNNStatic"
   input_stream: "LANDMARKS:multi_hand_landmarks"
-  output_stream: "LANDMARKS:z_score"
+  output_stream: "RENDER_DATA:signn"
 }
-
-node {
-  calculator: "CoordinateTimeLimitationCalculator"
-  input_stream: "LANDMARKS:z_score"
-  output_stream: "LANDMARKS:z_score_delayed"
-}
-
-node {
-  calculator : "CoordinateConsoleLoggerCalculator"
-  input_stream : "LANDMARKS:z_score_delayed"
-}
-
 
 # Caches a hand rectangle fed back from MultiHandLandmarkSubgraph, and upon the
 # arrival of the next input image sends out the cached rectangle with the
@@ -103,7 +91,7 @@ node {
   output_stream: "multi_hand_rects"
   node_options: {
     [type.googleapis.com/mediapipe.AssociationCalculatorOptions] {
-      min_similarity_threshold: 0.1
+      min_similarity_threshold: 0.5
     }
   }
 }
@@ -117,5 +105,6 @@ node {
   input_stream: "LANDMARKS:multi_hand_landmarks"
   input_stream: "NORM_RECTS:0:multi_palm_rects"
   input_stream: "NORM_RECTS:1:multi_hand_rects"
+  input_stream: "RENDER_DATA:signn"
   output_stream: "IMAGE:output_video"
 }

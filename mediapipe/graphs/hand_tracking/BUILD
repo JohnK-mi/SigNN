@@ -47,7 +47,8 @@ cc_library(
         "//mediapipe/calculators/signn:z_score_calculator",
         "//mediapipe/calculators/signn:coordinate_modifiers", 
         "//mediapipe/calculators/signn:logger_calculator",
-        "//mediapipe/calculators/signn:console_logger_calculator",   
+        "//mediapipe/calculators/signn:console_logger_calculator",  
+        "//mediapipe/graphs/hand_tracking/subgraphs:signn_static", 
     ]
 )
 

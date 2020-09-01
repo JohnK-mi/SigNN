@@ -36,6 +36,14 @@ proto_library(
         "//mediapipe/framework:calculator_proto",
     ],
 )
+proto_library(
+    name = "tflite_tensors_to_character_calculator_proto",
+    srcs = ["tflite_tensors_to_character_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
 
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
@@ -51,6 +59,14 @@ mediapipe_cc_proto_library(
     visibility = ["//visibility:public"],
     deps = [":average_double_calculator_proto"],
 )
+mediapipe_cc_proto_library(
+    name = "tflite_tensors_to_character_calculator_cc_proto",
+    srcs = ["tflite_tensors_to_character_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":tflite_tensors_to_character_calculator_proto"],
+)
+
 
 cc_library(
     name = "logger_calculator",
@@ -218,6 +234,8 @@ cc_library(
     deps = [
         "//mediapipe/framework:calculator_framework",
         "//mediapipe/framework/port:ret_check",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":tflite_tensors_to_character_calculator_cc_proto",
         "@org_tensorflow//tensorflow/lite:framework",
     ],
     alwayslink = 1,

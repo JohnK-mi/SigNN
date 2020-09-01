@@ -10,6 +10,7 @@ input_stream: "NORM_RECTS:0:multi_palm_rects"
 # A vector of NormalizedRect, one for each hand.
 input_stream: "NORM_RECTS:1:multi_hand_rects"
 # A vector of Detection, one for each hand.
+input_stream: "RENDER_DATA:signn"
 input_stream: "DETECTIONS:palm_detections"
 output_stream: "IMAGE:output_image"
 
@@ -140,5 +141,6 @@ node {
   input_stream: "multi_hand_rects_render_data"
   input_stream: "multi_palm_rects_render_data"
   input_stream: "VECTOR:0:multi_hand_landmarks_render_data"
+  input_stream: "signn"
   output_stream: "IMAGE:output_image"
 }
