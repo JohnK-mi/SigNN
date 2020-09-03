@@ -8,6 +8,7 @@
 
 #include <vector>
 
+
 namespace mediapipe{
 
     namespace{
@@ -65,6 +66,42 @@ namespace mediapipe{
         private:
 
     };
+
+    class LandmarksToTensorCalculatorOneHand : public CalculatorBase {
+        public:
+        LandmarksToTensorCalculatorOneHand(){};
+        ~LandmarksToTensorCalculatorOneHand(){};
+
+        static ::mediapipe::Status GetContract(CalculatorContract* cc){
+            cc->Inputs().Tag(NormalizedLandmarks).Set<NormalizedLandmarkList>();
+            cc->Outputs().Tag(LandmarkMatrix).Set<Matrix>();
+            return ::mediapipe::OkStatus();
+        }
+        ::mediapipe::Status Open(CalculatorContext* cc){
+
+            return ::mediapipe::OkStatus();
+        }
+        ::mediapipe::Status Process(CalculatorContext* cc){
+            NormalizedLandmarkList hand = cc->Inputs().Tag(NormalizedLandmarks).Get<NormalizedLandmarkList>();
+            Matrix bob;
+
+            bob.resize(1, 42);
+            for(int i = 0; i < 21; i++){     
+                bob(0, i*2) = hand.landmark(i).x();
+                bob(0, i*2+1) = hand.landmark(i).y();
+            }
+            
+            std::unique_ptr<Matrix> output_stream_collection = std::make_unique<Matrix>(bob); 
+            cc -> Outputs().Tag(LandmarkMatrix).Add(output_stream_collection.release(), cc->InputTimestamp());
+            return ::mediapipe::OkStatus();
+        }
+        ::mediapipe::Status Close(CalculatorContext* cc){
+            return ::mediapipe::OkStatus();
+        }
+
+        private:
+
+    };
     
-    REGISTER_CALCULATOR(LandmarksToTensorCalculator);
+    REGISTER_CALCULATOR(LandmarksToTensorCalculatorOneHand);
 }

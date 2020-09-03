@@ -58,7 +58,7 @@ node {
 }
 
 node {
-  calculator: "SigNNStatic"
+  calculator: "SigNN"
   input_stream: "LANDMARKS:multi_hand_landmarks"
   output_stream: "RENDER_DATA:signn"
 }

@@ -44,6 +44,22 @@ proto_library(
         "//mediapipe/framework:calculator_proto",
     ],
 )
+proto_library(
+    name = "time_average_calculator_proto",
+    srcs = ["time_average_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+proto_library(
+    name = "hand_gate_calculator_proto",
+    srcs = ["hand_gate_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
 
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
@@ -66,6 +82,21 @@ mediapipe_cc_proto_library(
     visibility = ["//visibility:public"],
     deps = [":tflite_tensors_to_character_calculator_proto"],
 )
+mediapipe_cc_proto_library(
+    name = "time_average_calculator_cc_proto",
+    srcs = ["time_average_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":time_average_calculator_proto"],
+)
+mediapipe_cc_proto_library(
+    name = "hand_gate_calculator_cc_proto",
+    srcs = ["hand_gate_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":hand_gate_calculator_proto"],
+)
+
 
 
 cc_library(
@@ -240,3 +271,41 @@ cc_library(
     ],
     alwayslink = 1,
 )
+
+cc_library(
+    name = "time_average_calculator",
+    srcs = ["time_average_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":time_average_calculator_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "timed_queue",
+    srcs = ["timed_queue.h", "timed_queue.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "hand_gate_calculator",
+    srcs = ["hand_gate_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/calculators/signn:timed_queue",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":hand_gate_calculator_cc_proto",
+    ],
+    alwayslink = 1,
+)
+

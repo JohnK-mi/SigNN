@@ -1,0 +1,30 @@
+type: "SigNN"
+
+input_stream: "LANDMARKS:multi_hand_landmarks"
+output_stream: "RENDER_DATA:signn"
+
+
+node {
+    calculator: "HandGateCalculator"
+    input_stream: "LANDMARKS:multi_hand_landmarks"
+    output_stream: "LANDMARKS:landmarks"
+    output_stream: "ALLOW:one_hand"
+    output_stream: "DISALLOW:one_hand_inverted"
+}
+
+node {
+  calculator: "FPSCalculatorOneHand"
+  input_stream: "LANDMARKS:landmarks"
+  output_stream: "DOUBLE:fps"
+}
+
+node {
+  calculator: "DoubleLoggerCalculator"
+  input_stream: "DOUBLE:fps"
+}
+
+node {
+  calculator: "SigNNStatic"
+  input_stream: "LANDMARKS:landmarks"
+  output_stream: "RENDER_DATA:signn"
+}

@@ -273,5 +273,17 @@ mediapipe_simple_subgraph(
     deps = [
         "//mediapipe/calculators/tflite:tflite_inference_calculator",
         "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
+        "//mediapipe/calculators/signn:time_average_calculator"
+    ],
+)
+
+mediapipe_simple_subgraph(
+    name = "signn",
+    graph = "signn.pbtxt",
+    register_as = "SigNN",
+    deps = [
+        ":signn_static",
+        "//mediapipe/calculators/signn:hand_gate_calculator",
+        "//mediapipe/calculators/signn:double_logger",
     ],
 )

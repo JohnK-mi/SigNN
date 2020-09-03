@@ -42,13 +42,14 @@ cc_library(
     name = "signn_multi_handed",
     deps = [
         ":signn_calculators",
+        "//mediapipe/calculators/signn:time_average_calculator",
         "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_gpu_fps",
         "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
         "//mediapipe/calculators/signn:z_score_calculator",
         "//mediapipe/calculators/signn:coordinate_modifiers", 
         "//mediapipe/calculators/signn:logger_calculator",
         "//mediapipe/calculators/signn:console_logger_calculator",  
-        "//mediapipe/graphs/hand_tracking/subgraphs:signn_static", 
+        "//mediapipe/graphs/hand_tracking/subgraphs:signn", 
     ]
 )
 

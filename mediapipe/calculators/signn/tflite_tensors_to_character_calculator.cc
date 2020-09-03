@@ -38,7 +38,6 @@ namespace mediapipe {
 
   ::mediapipe::Status TfLiteTensorsToCharacterCalculator::Process(
       CalculatorContext* cc) {
-    LOG(INFO) << "process";
     const auto& input_tensors = cc->Inputs().Tag("TENSORS").Get<std::vector<TfLiteTensor>>();
     const TfLiteTensor* raw_tensor = &input_tensors[0];
     

@@ -1,23 +1,34 @@
 type: "SigNNStatic"
 
-input_stream: "LANDMARKS:multi_hand_landmarks"
+input_stream: "LANDMARKS:landmarks"
 output_stream: "RENDER_DATA:signn"
 
 node {
-  calculator: "ZScoreCalculator"
-  input_stream: "LANDMARKS:multi_hand_landmarks"
+  calculator: "ZScoreCalculatorOneHand"
+  input_stream: "LANDMARKS:landmarks"
   output_stream: "LANDMARKS:zscore_landmarks"
 }
 
+node{
+    calculator: "TimeAverageCalculatorOneHand"
+    input_stream: "LANDMARKS:zscore_landmarks"
+    output_stream: "LANDMARKS:average_zscore_landmarks"
+    node_options: {
+    [type.googleapis.com/mediapipe.TimeAverageCalculatorOptions] {
+      memory_in_seconds: 1.5
+    }
+  }
+}
+
 node {
-  calculator: "LandmarksToTensorCalculator"
-  input_stream: "LANDMARKS:zscore_landmarks"
-  output_stream: "MATRIX:landmarks"
+  calculator: "LandmarksToTensorCalculatorOneHand"
+  input_stream: "LANDMARKS:average_zscore_landmarks"
+  output_stream: "MATRIX:landmark_matrix"
 }
 
 node {
   calculator: "TfLiteConverterCalculator"
-  input_stream: "MATRIX:landmarks"
+  input_stream: "MATRIX:landmark_matrix"
   output_stream: "TENSORS:landmark_tensors"
 }
 
