@@ -27,7 +27,6 @@ namespace mediapipe{
         ::mediapipe::Status Process(CalculatorContext* cc){
             for(int i = 0; i < cc->Inputs().NumEntries(); i++){
                 if(! cc->Inputs().Index(i).IsEmpty()){
-                    LOG(INFO) << i;
                     auto last_data = cc->Inputs().Index(i).Get<RenderData>();
                     auto output_data = absl::make_unique<RenderData>(last_data);
                     cc->Outputs().Tag(kRenderDataTag).Add(output_data.release(), cc->InputTimestamp());

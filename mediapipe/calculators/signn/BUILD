@@ -295,6 +295,7 @@ cc_library(
         "//mediapipe/framework:calculator_framework",
         "//mediapipe/framework:calculator_options_cc_proto",
         ":time_average_calculator_cc_proto",
+        ":timed_queue",
     ],
     alwayslink = 1,
 )
@@ -304,7 +305,8 @@ cc_library(
     srcs = ["timed_queue.h", "timed_queue.cc"],
     visibility = ["//visibility:public"],
     deps = [
-
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework:calculator_framework",
     ],
     alwayslink = 1,
 )

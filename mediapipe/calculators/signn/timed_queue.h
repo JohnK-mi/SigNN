@@ -1,4 +1,4 @@
-#include <chrono>
+#include <time.h>
 #include <vector>
 #include <queue>
 
@@ -13,9 +13,10 @@ class TimedQueue{
         void add(T);
         std::vector<T> get();
     private:
-        std::queue<std::chrono::_V2::system_clock::time_point> times;
+        std::queue<clock_t> times;
         std::vector<T> dispenser; 
         double memory_length;
+        double delta_t(clock_t start, clock_t end);
         
 };
 

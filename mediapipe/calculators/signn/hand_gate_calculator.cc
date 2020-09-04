@@ -33,7 +33,7 @@ namespace mediapipe{
         float memory_length = options.memory_in_seconds();
         accuracy_required = (double) options.percent_of_one_hand_required();
 
-        hand_history = TimedQueue<bool>(1000 * memory_length);
+        hand_history = TimedQueue<bool>(memory_length);
         return ::mediapipe::OkStatus();
     }
     ::mediapipe::Status Process(CalculatorContext* cc){
@@ -61,8 +61,6 @@ namespace mediapipe{
         }else{
             average = trues / v.size();
         }
-
-        // double average = 1.0 * std::accumulate(v.begin(), v.end(), 0LL) / v.size();
         if(accuracy_required <= average){
             std::unique_ptr<NormalizedLandmarkList> output_stream_collection = std::make_unique<NormalizedLandmarkList>(hand); 
             cc -> Outputs().Tag(NormalizedLandmarks).Add(output_stream_collection.release(), cc->InputTimestamp());
