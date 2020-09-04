@@ -37,11 +37,27 @@ namespace mediapipe{
             auto* label_annotation = render_data->add_render_annotations();
             auto* text = label_annotation->mutable_text();
             text->set_display_text(given_string);
-            text->set_font_height(50);
+            text->set_font_height(35);
             text->set_normalized(false);
             text->set_left(100);
             text->set_baseline(450);
-            // Normalized coordinates must be between 0.0 and 1.0, if they are used.
+            label_annotation->mutable_color()->set_r(0);
+            label_annotation->mutable_color()->set_g(0);
+            label_annotation->mutable_color()->set_b(0);
+            label_annotation->set_thickness(1);
+
+            auto* label_annotation_other = render_data->add_render_annotations();
+            auto* text_other = label_annotation_other->mutable_text();
+            text_other->set_display_text(given_string);
+            text_other->set_font_height(35);
+            text_other->set_normalized(false);
+            text_other->set_left(99);
+            text_other->set_baseline(451);
+            label_annotation->mutable_color()->set_r(256);
+            label_annotation->mutable_color()->set_g(256);
+            label_annotation->mutable_color()->set_b(256);
+            label_annotation->set_thickness(1);
+
             cc->Outputs().Tag(kRenderDataTag).Add(render_data.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();
         }

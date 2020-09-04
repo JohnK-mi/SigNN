@@ -2,13 +2,13 @@
 #include "mediapipe/framework/formats/landmark.pb.h"
 
 #include "mediapipe/calculators/signn/timed_queue.h"
+#include "mediapipe/calculators/signn/hand_gate_calculator.pb.h"
 
 namespace mediapipe{
 
     namespace{
         constexpr char NormalizedLandmarks[] = "LANDMARKS";
-        constexpr char Allow[] = "ALLOW";
-        constexpr char Disallow[] = "DISALLOW";
+        constexpr char SIGNAL[] = "SIGNAL";
     }
 
     class HandGateCalculator: public CalculatorBase {
@@ -19,8 +19,7 @@ namespace mediapipe{
     static ::mediapipe::Status GetContract(CalculatorContract* cc){
         cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
         cc->Outputs().Tag(NormalizedLandmarks).Set<NormalizedLandmarkList>();
-        cc->Outputs().Tag(Allow).Set<bool>();
-        cc->Outputs().Tag(Disallow).Set<bool>();
+        cc->Outputs().Tag(SIGNAL).Set<bool>();
         return ::mediapipe::OkStatus();
     }
     ::mediapipe::Status Open(CalculatorContext* cc){
@@ -30,7 +29,11 @@ namespace mediapipe{
             scored->set_y(1);
             scored->set_z(1);
         }
-        hand_history = TimedQueue<int>(2 * 1000);
+        const auto& options = cc->Options<::mediapipe::HandGateCalculatorOptions>();
+        float memory_length = options.memory_in_seconds();
+        accuracy_required = (double) options.percent_of_one_hand_required();
+
+        hand_history = TimedQueue<bool>(1000 * memory_length);
         return ::mediapipe::OkStatus();
     }
     ::mediapipe::Status Process(CalculatorContext* cc){
@@ -38,18 +41,39 @@ namespace mediapipe{
         NormalizedLandmarkList hand;
         if(hands.size() != 1){
             hand = last_hand;
+            hand_history.add(false);
         }else{
             hand = hands.at(0);
             last_hand = hand;
+            hand_history.add(true);
         }
-        hand_history.add(hands.size());
-        std::vector<int> v = hand_history.get();
-        double average = 1.0 * std::accumulate(v.begin(), v.end(), 0LL) / v.size();
-        LOG(INFO) << average;
-        std::unique_ptr<NormalizedLandmarkList> output_stream_collection = std::make_unique<NormalizedLandmarkList>(hand); 
-        cc -> Outputs().Tag(NormalizedLandmarks).Add(output_stream_collection.release(), cc->InputTimestamp());
-        cc->Outputs().Tag(Allow).AddPacket(MakePacket<bool>(Allow).At(cc->InputTimestamp()));
-        cc->Outputs().Tag(Disallow).AddPacket(MakePacket<bool>(Disallow).At(cc->InputTimestamp()));
+        
+        std::vector<bool> v = hand_history.get();
+        int trues = 0;
+        for(int i = 0; i < v.size(); i++){
+            if(v[i] == true){
+                trues += 1;
+            }
+        }
+        double average;
+        if(v.size() == 0){
+            average = 0;
+        }else{
+            average = trues / v.size();
+        }
+
+        // double average = 1.0 * std::accumulate(v.begin(), v.end(), 0LL) / v.size();
+        if(accuracy_required <= average){
+            std::unique_ptr<NormalizedLandmarkList> output_stream_collection = std::make_unique<NormalizedLandmarkList>(hand); 
+            cc -> Outputs().Tag(NormalizedLandmarks).Add(output_stream_collection.release(), cc->InputTimestamp());
+            return ::mediapipe::OkStatus();
+        }else{
+            std::unique_ptr<bool> output_stream_collection = std::make_unique<bool>(true); 
+            cc -> Outputs().Tag(SIGNAL).Add(output_stream_collection.release(), cc->InputTimestamp());   
+            return ::mediapipe::OkStatus(); 
+        }
+
+        // cc->Outputs().Tag(Allow).AddPacket(MakePacket<bool>(Allow).At(cc->InputTimestamp()));
         return ::mediapipe::OkStatus();
     }
     ::mediapipe::Status Close(CalculatorContext* cc){
@@ -58,7 +82,9 @@ namespace mediapipe{
 
     private:
     NormalizedLandmarkList last_hand;
-    TimedQueue<int> hand_history; 
+    TimedQueue<bool> hand_history; 
+    double accuracy_required;
+    
     };
     REGISTER_CALCULATOR(HandGateCalculator);
 }

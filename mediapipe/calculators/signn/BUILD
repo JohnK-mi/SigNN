@@ -60,6 +60,14 @@ proto_library(
         "//mediapipe/framework:calculator_proto",
     ],
 )
+proto_library(
+    name = "string_emitter_calculator_proto",
+    srcs = ["string_emitter_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
 
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
@@ -96,7 +104,13 @@ mediapipe_cc_proto_library(
     visibility = ["//visibility:public"],
     deps = [":hand_gate_calculator_proto"],
 )
-
+mediapipe_cc_proto_library(
+    name = "string_emitter_calculator_cc_proto",
+    srcs = ["string_emitter_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":string_emitter_calculator_proto"],
+)
 
 
 cc_library(
@@ -309,3 +323,40 @@ cc_library(
     alwayslink = 1,
 )
 
+
+cc_library(
+    name = "signn_end_gate_calculator",
+    srcs = ["signn_end_gate_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        "//mediapipe/util:render_data_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "string_emitter_calculator",
+    srcs = ["string_emitter_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":string_emitter_calculator_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "fps_gate_calculator",
+    srcs = ["fps_gate_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        "//mediapipe/calculators/signn:timed_queue",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+    ],
+    alwayslink = 1,
+)

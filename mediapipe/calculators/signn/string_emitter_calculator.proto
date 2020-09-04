@@ -18,11 +18,10 @@ package mediapipe;
 
 import "mediapipe/framework/calculator.proto";
 
-message HandGateCalculatorOptions {
+message StringEmitterCalculatorOptions {
   extend mediapipe.CalculatorOptions {
-    optional HandGateCalculatorOptions ext = 361754854;
+    optional StringEmitterCalculatorOptions ext = 361754951;
   }
 
-  required float memory_in_seconds = 1;
-  required float percent_of_one_hand_required = 2;
+  required string given_string = 1;
 }

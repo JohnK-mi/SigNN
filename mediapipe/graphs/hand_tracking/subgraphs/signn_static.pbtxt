@@ -15,7 +15,7 @@ node{
     output_stream: "LANDMARKS:average_zscore_landmarks"
     node_options: {
     [type.googleapis.com/mediapipe.TimeAverageCalculatorOptions] {
-      memory_in_seconds: 1.5
+      memory_in_seconds: 1
     }
   }
 }

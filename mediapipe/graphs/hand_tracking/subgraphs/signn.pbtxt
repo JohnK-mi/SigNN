@@ -1,16 +1,40 @@
 type: "SigNN"
 
 input_stream: "LANDMARKS:multi_hand_landmarks"
-output_stream: "RENDER_DATA:signn"
+output_stream: "RENDER_DATA:output"
 
 
 node {
     calculator: "HandGateCalculator"
     input_stream: "LANDMARKS:multi_hand_landmarks"
     output_stream: "LANDMARKS:landmarks"
-    output_stream: "ALLOW:one_hand"
-    output_stream: "DISALLOW:one_hand_inverted"
+    output_stream: "SIGNAL:invalid_hands"
+    node_options: {
+      [type.googleapis.com/mediapipe.HandGateCalculatorOptions] {
+        memory_in_seconds: 1.5
+        percent_of_one_hand_required: .6
+      }
+    }
 }
+
+node {
+    calculator: "StringEmitterCalculator"
+    input_stream: "SIGNAL:invalid_hands"
+    output_stream: "STRING:invalid_hands_text"
+    node_options: {
+      [type.googleapis.com/mediapipe.StringEmitterCalculatorOptions] {
+        given_string: "Display 1 hand"
+      }
+    }
+}
+
+node {
+  calculator: "StringToRenderDataCalculator"
+  input_stream: "STRING:invalid_hands_text"
+  output_stream: "RENDER_DATA:invalid_hands_render"
+}
+
+
 
 node {
   calculator: "FPSCalculatorOneHand"
@@ -19,12 +43,44 @@ node {
 }
 
 node {
-  calculator: "DoubleLoggerCalculator"
+  calculator: "FPSGateCalculator"
   input_stream: "DOUBLE:fps"
+  input_stream: "LANDMARKS:landmarks"
+  output_stream: "LANDMARKS:fps_gated"
+  output_stream: "SIGNAL:invalid_fps"
+}
+
+
+node {
+  calculator: "StringEmitterCalculator"
+  input_stream: "SIGNAL:invalid_fps"
+  output_stream: "STRING:invalid_fps_text"
+  node_options: {
+    [type.googleapis.com/mediapipe.StringEmitterCalculatorOptions] {
+      given_string: "FPS too low"
+      }
+  }
+}
+
+node {
+  calculator: "StringToRenderDataCalculator"
+  input_stream: "STRING:invalid_fps_text"
+  output_stream: "RENDER_DATA:invalid_fps_render"
 }
 
 node {
   calculator: "SigNNStatic"
-  input_stream: "LANDMARKS:landmarks"
-  output_stream: "RENDER_DATA:signn"
+  input_stream: "LANDMARKS:fps_gated"
+  output_stream: "RENDER_DATA:signn_render"
+}
+
+node {
+  calculator: "SignnEndGateCalculator"
+  input_stream: "signn_render"
+  input_stream: "invalid_fps_render"
+  input_stream: "invalid_hands_render"
+  output_stream: "RENDER_DATA:output"
+  input_stream_handler {
+    input_stream_handler: 'ImmediateInputStreamHandler'
+  }
 }

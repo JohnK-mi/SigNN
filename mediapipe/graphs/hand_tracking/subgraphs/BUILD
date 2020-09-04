@@ -285,5 +285,8 @@ mediapipe_simple_subgraph(
         ":signn_static",
         "//mediapipe/calculators/signn:hand_gate_calculator",
         "//mediapipe/calculators/signn:double_logger",
+        "//mediapipe/calculators/signn:signn_end_gate_calculator",
+        "//mediapipe/calculators/signn:string_emitter_calculator",
+        "//mediapipe/calculators/signn:fps_gate_calculator",
     ],
 )
