@@ -1,4 +1,3 @@
-#include <chrono>
 #include <iostream>
 #include <time.h>
 #include <queue>
@@ -28,7 +27,7 @@ void FPSHistory::remove_expired(){
     if(raw_history_q.size() < MINIMUM_FRAMES_IN_MEMORY){
         return;
     }
-    if(delta_t(raw_history_q.front(), raw_history_q.back()) > MEMORY_IN_SECONDS){
+    while(delta_t(raw_history_q.front(), raw_history_q.back()) > MEMORY_IN_SECONDS){
         raw_history_q.pop_front();
     }
 }
