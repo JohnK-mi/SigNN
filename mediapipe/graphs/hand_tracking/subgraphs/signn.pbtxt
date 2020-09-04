@@ -11,8 +11,8 @@ node {
     output_stream: "SIGNAL:invalid_hands"
     node_options: {
       [type.googleapis.com/mediapipe.HandGateCalculatorOptions] {
-        memory_in_seconds: 1.5
-        percent_of_one_hand_required: .6
+        memory_in_seconds: 1
+        percent_of_one_hand_required: .5
       }
     }
 }
@@ -48,6 +48,12 @@ node {
   input_stream: "LANDMARKS:landmarks"
   output_stream: "LANDMARKS:fps_gated"
   output_stream: "SIGNAL:invalid_fps"
+  node_options: {
+    [type.googleapis.com/mediapipe.FpsGateCalculatorOptions] {
+        memory_in_seconds: 5
+        minimum_fps: 3
+      }
+  }
 }
 
 
@@ -67,6 +73,18 @@ node {
   input_stream: "STRING:invalid_fps_text"
   output_stream: "RENDER_DATA:invalid_fps_render"
 }
+
+node{
+  calculator: "LandmarkHistoryCalculator"
+  input_stream: "LANDMARKS:fps_gated"
+  output_stream: "LANDMARKS:lstm_input"
+  node_options: {
+    [type.googleapis.com/mediapipe.LandmarkHistoryCalculatorOptions] {
+      memory_in_seconds: 3
+      }
+  }
+}
+
 
 node {
   calculator: "SigNNStatic"

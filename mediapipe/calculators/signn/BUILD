@@ -68,6 +68,22 @@ proto_library(
         "//mediapipe/framework:calculator_proto",
     ],
 )
+proto_library(
+    name = "landmark_history_calculator_proto",
+    srcs = ["landmark_history_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+proto_library(
+    name = "fps_gate_calculator_proto",
+    srcs = ["fps_gate_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
 
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
@@ -111,6 +127,21 @@ mediapipe_cc_proto_library(
     visibility = ["//visibility:public"],
     deps = [":string_emitter_calculator_proto"],
 )
+mediapipe_cc_proto_library(
+    name = "landmark_history_calculator_cc_proto",
+    srcs = ["landmark_history_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":landmark_history_calculator_proto"],
+)
+mediapipe_cc_proto_library(
+    name = "fps_gate_calculator_cc_proto",
+    srcs = ["fps_gate_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":fps_gate_calculator_proto"],
+)
+
 
 
 cc_library(
@@ -359,6 +390,21 @@ cc_library(
         "//mediapipe/framework:calculator_options_cc_proto",
         "//mediapipe/calculators/signn:timed_queue",
         "//mediapipe/framework/formats:landmark_cc_proto",
+        ":fps_gate_calculator_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "landmark_history_calculator",
+    srcs = ["landmark_history_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":timed_queue",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        ":landmark_history_calculator_cc_proto",
     ],
     alwayslink = 1,
 )

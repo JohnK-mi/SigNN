@@ -288,5 +288,6 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:signn_end_gate_calculator",
         "//mediapipe/calculators/signn:string_emitter_calculator",
         "//mediapipe/calculators/signn:fps_gate_calculator",
+        "//mediapipe/calculators/signn:landmark_history_calculator",
     ],
 )

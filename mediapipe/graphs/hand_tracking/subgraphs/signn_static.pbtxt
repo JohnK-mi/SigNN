@@ -50,7 +50,7 @@ node {
   output_stream: "STRING:signn_string"
   node_options: {
     [type.googleapis.com/mediapipe.TfliteTensorsToCharacterCalculatorOptions] {
-      unknown_threshold: .5
+      unknown_threshold: .7
       last_character_bias: .1
     }
   }

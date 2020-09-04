@@ -2,6 +2,8 @@
 #include "mediapipe/calculators/signn/timed_queue.h"
 #include "mediapipe/framework/formats/landmark.pb.h"
 
+#include "mediapipe/calculators/signn/fps_gate_calculator.pb.h"
+
 #include <vector>
 
 
@@ -28,7 +30,9 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
-            history = TimedQueue<double>(2);
+            const auto& options = cc->Options<::mediapipe::FpsGateCalculatorOptions>();
+            minimum_fps = options.minimum_fps();
+            history = TimedQueue<double>(options.memory_in_seconds());
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
@@ -40,7 +44,7 @@ namespace mediapipe{
                 average += fps_over_time[i];
             }
             average /= fps_over_time.size();
-            if(average <= 3){
+            if(average <= minimum_fps){
                 std::unique_ptr<bool> output_stream_collection = std::make_unique<bool>(true); 
                 cc -> Outputs().Tag(SIGNAL).Add(output_stream_collection.release(), cc->InputTimestamp()); 
             }else{
@@ -54,6 +58,7 @@ namespace mediapipe{
         }
 
         private:
+        float minimum_fps;
         TimedQueue<double> history;
 
     };
