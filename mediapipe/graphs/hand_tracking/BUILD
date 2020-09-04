@@ -150,6 +150,29 @@ mediapipe_binary_graph(
     deps = [":multi_hand_mobile_calculators"],
 )
 
+mediapipe_binary_graph(
+    name = "multi_hand_tracking_mobile_fps_gpu_binary_graph",
+    graph = "multi_hand_tracking_fps.pbtxt",
+    output_name = "multi_hand_tracking_mobile_fps_gpu.binarypb",
+    deps = [":multi_hand_mobile_calculators"],
+)
+
+mediapipe_binary_graph(
+    name = "hand_tracking_mobile_fps_gpu_binary_graph",
+    graph = "hand_tracking_mobile_fps.pbtxt",
+    output_name = "hand_tracking_mobile_fps_gpu.binarypb",
+    deps = [":mobile_calculators"],
+)
+
+mediapipe_binary_graph(
+    name = "signn_binary_graph",
+    graph = "multi_hand_tracking_mobile_signn.pbtxt",
+    output_name = "signn.binarypb",
+    deps = [":multi_hand_mobile_calculators"],
+)
+
+
+
 cc_library(
     name = "detection_mobile_calculators",
     deps = [
