@@ -39,7 +39,7 @@ namespace mediapipe{
             text->set_display_text(given_string);
             text->set_font_height(35);
             text->set_normalized(false);
-            text->set_left(200);
+            text->set_left(150);
             text->set_baseline(450);
             label_annotation->mutable_color()->set_r(0);
             label_annotation->mutable_color()->set_g(0);
