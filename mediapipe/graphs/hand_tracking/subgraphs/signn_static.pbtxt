@@ -38,7 +38,7 @@ node {
   output_stream: "TENSORS:signn_predictions"
   node_options: {
     [type.googleapis.com/mediapipe.TfLiteInferenceCalculatorOptions] {
-      model_path: "signn_model/model.tflite"
+      model_path: "mediapipe/models/signn_static.tflite"
     }
   }
 }
