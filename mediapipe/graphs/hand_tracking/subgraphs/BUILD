@@ -291,3 +291,19 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:landmark_history_calculator",
     ],
 )
+
+mediapipe_simple_subgraph(
+    name = "SigNNOneHand",
+    graph = "signn_one_hand.pbtxt",
+    register_as = "SigNNOneHand",
+    deps = [
+        ":signn_static",
+        "//mediapipe/calculators/signn:hand_gate_calculator",
+        "//mediapipe/calculators/signn:double_logger",
+        "//mediapipe/calculators/signn:signn_end_gate_calculator",
+        "//mediapipe/calculators/signn:string_emitter_calculator",
+        "//mediapipe/calculators/signn:fps_gate_calculator",
+        "//mediapipe/calculators/signn:landmark_history_calculator",
+    ],
+)
+
