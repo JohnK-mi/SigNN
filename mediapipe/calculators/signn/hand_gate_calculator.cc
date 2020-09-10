@@ -70,8 +70,6 @@ namespace mediapipe{
             cc -> Outputs().Tag(SIGNAL).Add(output_stream_collection.release(), cc->InputTimestamp());   
             return ::mediapipe::OkStatus(); 
         }
-
-        // cc->Outputs().Tag(Allow).AddPacket(MakePacket<bool>(Allow).At(cc->InputTimestamp()));
         return ::mediapipe::OkStatus();
     }
     ::mediapipe::Status Close(CalculatorContext* cc){
@@ -85,4 +83,5 @@ namespace mediapipe{
     
     };
     REGISTER_CALCULATOR(HandGateCalculator);
+
 }

@@ -37,7 +37,7 @@ namespace mediapipe{
             auto* label_annotation = render_data->add_render_annotations();
             auto* text = label_annotation->mutable_text();
             text->set_display_text(given_string);
-            text->set_font_height(35);
+            text->set_font_height(70);
             text->set_normalized(false);
             text->set_left(300);
             text->set_baseline(450);
@@ -49,7 +49,7 @@ namespace mediapipe{
             auto* label_annotation_other = render_data->add_render_annotations();
             auto* text_other = label_annotation_other->mutable_text();
             text_other->set_display_text(given_string);
-            text_other->set_font_height(35);
+            text_other->set_font_height(70);
             text_other->set_normalized(false);
             text_other->set_left(299);
             text_other->set_baseline(451);
