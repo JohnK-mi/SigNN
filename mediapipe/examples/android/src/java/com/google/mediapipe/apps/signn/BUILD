@@ -103,11 +103,12 @@ android_binary(
         "//mediapipe/models:hand_landmark.tflite",
         "//mediapipe/models:palm_detection.tflite",
         "//mediapipe/models:palm_detection_labelmap.txt",
+        "//mediapipe/models:signn_static.tflite",
     ],
     assets_dir = "",
     manifest = "//mediapipe/examples/android/src/java/com/google/mediapipe/apps/basic:AndroidManifest.xml",
     manifest_values = {
-        "applicationId": "com.google.mediapipe.apps.handtrackinggpu",
+        "applicationId": "com.google.mediapipe.apps.multihandtrackinggpu",
         "appName": "SigNN",
         "mainActivity": ".MainActivity",
         "cameraFacingFront": "True",
@@ -124,3 +125,4 @@ android_binary(
         "//mediapipe/java/com/google/mediapipe/framework:android_framework",
     ],
 )
+

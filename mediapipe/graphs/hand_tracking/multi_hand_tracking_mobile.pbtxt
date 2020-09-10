@@ -110,6 +110,7 @@ node {
   }
 }
 
+
 # Subgraph that renders annotations and overlays them on top of the input
 # images (see multi_hand_renderer_gpu.pbtxt).
 node {
