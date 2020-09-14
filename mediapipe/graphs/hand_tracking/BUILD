@@ -37,7 +37,6 @@ cc_library(
         "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
         "//mediapipe/calculators/signn:time_average_calculator",
         "//mediapipe/calculators/signn:z_score_calculator",
-        "//mediapipe/calculators/signn:logger_calculator",
         "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
         "//mediapipe/calculators/signn:point_velocity_calculator",
     ]
@@ -170,6 +169,13 @@ mediapipe_binary_graph(
     graph = "multi_hand_tracking_mobile_signn.pbtxt",
     output_name = "signn.binarypb",
     deps = [":multi_hand_mobile_calculators"],
+)
+
+mediapipe_binary_graph(
+    name = "signn_one_hand_binary_graph",
+    graph = "hand_tracking_mobile_signn.pbtxt",
+    output_name = "signn_one_hand.binarypb",
+    deps = [":mobile_calculators"],
 )
 
 

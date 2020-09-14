@@ -33,10 +33,10 @@ cc_library(
 )
 
 android_binary(
-    name = "handtrackinggpu",
+    name = "signnonehand",
     srcs = glob(["*.java"]),
     assets = [
-        "//mediapipe/graphs/hand_tracking:hand_tracking_mobile_gpu.binarypb",
+        "//mediapipe/graphs/hand_tracking:signn_one_hand.binarypb",
         "//mediapipe/models:handedness.txt",
         "//mediapipe/models:hand_landmark.tflite",
         "//mediapipe/models:palm_detection.tflite",
@@ -50,7 +50,7 @@ android_binary(
         "appName": "SigNN One Hand",
         "mainActivity": ".MainActivity",
         "cameraFacingFront": "True",
-        "binaryGraphName": "hand_tracking_mobile_gpu.binarypb",
+        "binaryGraphName": "signn_one_hand.binarypb",
         "inputVideoStreamName": "input_video",
         "outputVideoStreamName": "output_video",
         "flipFramesVertically": "True",
