@@ -6,7 +6,7 @@
 #include "mediapipe/framework/port/file_helpers.h"
 #include "mediapipe/calculators/signn/coordinate_logger_calculator.pb.h"
 
-#include <vector>
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -27,7 +27,7 @@ namespace mediapipe{
         ~CoordinateLoggerCalculator(){};
 
         static ::mediapipe::Status GetContract(CalculatorContract* cc){
-            cc->Inputs().Tag(NormalizedLandmarks).Set<std::vector<NormalizedLandmarkList>>();
+            cc->Inputs().Tag(NormalizedLandmarks).Set<NormalizedLandmarkList>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
@@ -74,7 +74,7 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
-            std::vector<NormalizedLandmarkList> hands = cc->Inputs().Tag(NormalizedLandmarks).Get<std::vector<NormalizedLandmarkList>>();
+            NormalizedLandmarkList hand = cc->Inputs().Tag(NormalizedLandmarks).Get<NormalizedLandmarkList>();
             if(firstwrite){
                 file << "[";
                 firstwrite = false;
@@ -82,24 +82,14 @@ namespace mediapipe{
                 file << ", [";
             }
 
-            for(int i = 0; i < hands.size(); i++){
-                auto hand = hands.at(i);
-                file << "[";
-                for(int j = 0; j < hand.landmark_size(); j++){
-                    file << std::fixed << hand.landmark(j).x() << ", " << std::fixed << hand.landmark(j).y() << ", " << std::fixed << hand.landmark(j).z();
-                    if(j + 1 < hand.landmark_size()){
-                        file << ", ";
-                    }
+            for(int j = 0; j < hand.landmark_size(); j++){
+                file << std::fixed << hand.landmark(j).x() << ", " << std::fixed << hand.landmark(j).y() << ", " << std::fixed << hand.landmark(j).z();
+                if(j + 1 < hand.landmark_size()){
+                    file << ", ";
                 }
-                if(i + 1 < hands.size()){
-                    file << "],";
-                }else{
-                    file << "]";
-                }
-                
-
             }
             file << "]";
+
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Close(CalculatorContext* cc){
