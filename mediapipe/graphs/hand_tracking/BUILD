@@ -37,7 +37,6 @@ cc_library(
         "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
         "//mediapipe/calculators/signn:time_average_calculator",
         "//mediapipe/calculators/signn:z_score_calculator",
-        "//mediapipe/calculators/signn:logger_calculator",
         "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
         "//mediapipe/calculators/signn:point_velocity_calculator",
     ]
