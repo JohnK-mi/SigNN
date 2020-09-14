@@ -171,6 +171,13 @@ mediapipe_binary_graph(
     deps = [":multi_hand_mobile_calculators"],
 )
 
+mediapipe_binary_graph(
+    name = "signn_one_hand_binary_graph",
+    graph = "hand_tracking_mobile_signn.pbtxt",
+    output_name = "signn_one_hand.binarypb",
+    deps = [":mobile_calculators"],
+)
+
 
 
 cc_library(

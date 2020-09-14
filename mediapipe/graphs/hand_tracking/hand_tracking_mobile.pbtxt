@@ -112,12 +112,6 @@ node {
   output_stream: "hand_rect"
 }
 
-node {
-  calculator: "SigNNOneHand"
-  input_stream: "LANDMARKS:hand_landmarks"
-  output_stream: "RENDER_DATA:signn"
-}
-
 # Subgraph that renders annotations and overlays them on top of the input
 # images (see renderer_gpu.pbtxt).
 node {
@@ -126,6 +120,5 @@ node {
   input_stream: "LANDMARKS:hand_landmarks"
   input_stream: "NORM_RECT:hand_rect"
   input_stream: "DETECTIONS:palm_detections"
-  input_stream: "RENDER_DATA:signn"
   output_stream: "IMAGE:output_video"
 }
