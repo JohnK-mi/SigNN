@@ -125,4 +125,3 @@ android_binary(
         "//mediapipe/java/com/google/mediapipe/framework:android_framework",
     ],
 )
-
