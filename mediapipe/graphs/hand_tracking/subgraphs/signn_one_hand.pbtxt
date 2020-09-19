@@ -17,6 +17,7 @@ node {
   input_stream: "LANDMARKS:landmarks"
   output_stream: "LANDMARKS:fps_gated"
   output_stream: "SIGNAL:invalid_fps"
+  output_stream: "DOUBLE:fps_gated_fps"
   node_options: {
     [type.googleapis.com/mediapipe.FpsGateCalculatorOptions] {
         memory_in_seconds: 5
@@ -25,6 +26,16 @@ node {
   }
 }
 
+node {
+  calculator: "LandmarkHistoryCalculator"
+  input_stream: "LANDMARKS:fps_gated"
+  output_stream: "LANDMARKS_HISTORY:landmarks_history"
+  node_options: {
+    [type.googleapis.com/mediapipe.LandmarkHistoryCalculatorOptions] {
+      memory_in_seconds: 3
+      }
+  }
+}
 
 node {
   calculator: "StringEmitterCalculator"
@@ -43,27 +54,38 @@ node {
   output_stream: "RENDER_DATA:invalid_fps_render"
 }
 
-node{
-  calculator: "LandmarkHistoryCalculator"
+node {
+  calculator: "PointVelocityCalculatorOneHand"
   input_stream: "LANDMARKS:fps_gated"
-  output_stream: "LANDMARKS:lstm_input"
-  node_options: {
-    [type.googleapis.com/mediapipe.LandmarkHistoryCalculatorOptions] {
-      memory_in_seconds: 3
-      }
-  }
+  input_stream: "DOUBLE:fps_gated_fps"
+  output_stream: "DOUBLE:velocity"
 }
 
+node{
+  calculator: "StaticDynamicGateCalculator"
+  input_stream: "LANDMARKS:fps_gated"
+  input_stream: "LANDMARKS_HISTORY:landmarks_history"
+  input_stream: "DOUBLE:velocity"
+  output_stream: "LANDMARKS:static_landmarks"
+  output_stream: "LANDMARKS_HISTORY:dynamic_landmarks"
+}
+
+node {
+  calculator: "SigNNDynamic"
+  input_stream: "LANDMARKS_HISTORY:dynamic_landmarks"
+  output_stream: "RENDER_DATA:dynamic_render"
+}
 
 node {
   calculator: "SigNNStatic"
-  input_stream: "LANDMARKS:fps_gated"
-  output_stream: "RENDER_DATA:signn_render"
+  input_stream: "LANDMARKS:static_landmarks"
+  output_stream: "RENDER_DATA:static_render"
 }
 
 node {
   calculator: "SignnEndGateCalculator"
-  input_stream: "signn_render"
+  input_stream: "static_render"
+  input_stream: "dynamic_render"
   input_stream: "invalid_fps_render"
   output_stream: "RENDER_DATA:output"
   input_stream_handler {

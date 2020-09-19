@@ -465,3 +465,16 @@ cc_library(
     ],
     alwayslink = 1,
 )
+
+cc_library(
+    name = "static_dynamic_gate_calculator",
+    srcs = ["static_dynamic_gate_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        ":timed_queue",
+    ],
+    alwayslink = 1,
+)

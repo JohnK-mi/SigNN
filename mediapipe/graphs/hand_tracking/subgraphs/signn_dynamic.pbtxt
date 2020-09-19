@@ -1,6 +1,7 @@
 type: "SigNNDynamic"
 
 input_stream: "LANDMARKS_HISTORY:history"
+output_stream: "RENDER_DATA:lstm_results"
 
 
 
@@ -39,8 +40,14 @@ node {
   output_stream: "STRING:output"
   node_options: {
     [type.googleapis.com/mediapipe.DynamicTfliteTensorsToCharacterCalculatorOptions] {
-      unknown_threshold: .7
-      last_character_bias: .1
+      unknown_threshold: .505
+      last_character_bias: .005
     }
   }
+}
+
+node {
+  calculator: "StringToRenderDataCalculator"
+  input_stream: "STRING:output"
+  output_stream: "RENDER_DATA:lstm_results"
 }

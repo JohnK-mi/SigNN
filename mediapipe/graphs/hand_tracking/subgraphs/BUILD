@@ -300,6 +300,7 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:string_emitter_calculator",
         "//mediapipe/calculators/signn:fps_gate_calculator",
         "//mediapipe/calculators/signn:landmark_history_calculator",
+        "//mediapipe/calculators/signn:static_dynamic_gate_calculator",
     ],
 )
 
@@ -316,6 +317,7 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:string_emitter_calculator",
         "//mediapipe/calculators/signn:fps_gate_calculator",
         "//mediapipe/calculators/signn:landmark_history_calculator",
+        "//mediapipe/calculators/signn:static_dynamic_gate_calculator",
     ],
 )
 

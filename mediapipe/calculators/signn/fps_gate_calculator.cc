@@ -27,6 +27,7 @@ namespace mediapipe{
             cc->Inputs().Tag(Landmarks).Set<NormalizedLandmarkList>();
             cc->Outputs().Tag(SIGNAL).Set<bool>();
             cc->Outputs().Tag(Landmarks).Set<NormalizedLandmarkList>();
+            cc->Outputs().Tag(DOUBLE).Set<double>();
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
@@ -49,6 +50,8 @@ namespace mediapipe{
                 cc -> Outputs().Tag(SIGNAL).Add(output_stream_collection.release(), cc->InputTimestamp()); 
             }else{
                 cc -> Outputs().Tag(Landmarks).Add(output_stream_collection.release(), cc->InputTimestamp());
+                std::unique_ptr<double> fps_stream = std::make_unique<double>(average); 
+                cc -> Outputs().Tag(DOUBLE).Add(fps_stream.release(), cc->InputTimestamp());
             }
 
             return ::mediapipe::OkStatus();
