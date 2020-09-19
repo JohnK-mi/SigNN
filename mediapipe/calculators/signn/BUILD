@@ -93,6 +93,15 @@ proto_library(
     ],
 )
 
+proto_library(
+    name = "static_dynamic_gate_options_proto",
+    srcs = ["static_dynamic_gate_options.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+
 mediapipe_cc_proto_library(
     name = "coordinate_logger_calculator_cc_proto",
     srcs = ["coordinate_logger_calculator.proto"],
@@ -155,6 +164,13 @@ mediapipe_cc_proto_library(
     cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
     visibility = ["//visibility:public"],
     deps = [":fps_gate_calculator_proto"],
+)
+mediapipe_cc_proto_library(
+    name = "static_dynamic_gate_options_cc_proto",
+    srcs = ["static_dynamic_gate_options.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":static_dynamic_gate_options_proto"],
 )
 
 
@@ -475,6 +491,7 @@ cc_library(
         "//mediapipe/framework:calculator_options_cc_proto",
         "//mediapipe/framework/formats:landmark_cc_proto",
         ":timed_queue",
+        ":static_dynamic_gate_options_cc_proto",
     ],
     alwayslink = 1,
 )

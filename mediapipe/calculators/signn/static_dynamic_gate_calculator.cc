@@ -2,6 +2,8 @@
 #include "mediapipe/calculators/signn/timed_queue.h"
 #include "mediapipe/framework/formats/landmark.pb.h"
 
+#include "mediapipe/calculators/signn/static_dynamic_gate_options.pb.h"
+
 #include <fstream>
 
 namespace mediapipe{
@@ -26,7 +28,11 @@ namespace mediapipe{
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Open(CalculatorContext* cc){
-            history = TimedQueue<double>(1);
+            const auto& options = cc->Options<::mediapipe::StaticDynamicGateOptions>();
+            DYNAMIC_THRESHOLD = options.dynamic_threshold();
+            MAXIMUM_EXTRA_DYNAMIC_FRAMES = options.maximum_extra_dynamic_frames();
+            double velocity_history = options.velocity_history();
+            history = TimedQueue<double>(velocity_history);
             return ::mediapipe::OkStatus();
         }
         ::mediapipe::Status Process(CalculatorContext* cc){
@@ -61,7 +67,8 @@ namespace mediapipe{
         private:
         TimedQueue<double> history;
         double extra_dynamic_frames = 0;
-        double DYNAMIC_THRESHOLD = .095;
+        int MAXIMUM_EXTRA_DYNAMIC_FRAMES = 0;
+        double DYNAMIC_THRESHOLD;
 
     };
     REGISTER_CALCULATOR(StaticDynamicGateCalculator);
