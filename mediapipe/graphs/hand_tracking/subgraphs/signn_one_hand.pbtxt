@@ -3,18 +3,47 @@ type: "SigNNOneHand"
 input_stream: "LANDMARKS:landmarks"
 output_stream: "RENDER_DATA:output"
 
+node {
+  calculator: "OneHandGateCalculator"
+  input_stream: "LANDMARKS:landmarks"
+  output_stream: "LANDMARKS:hand_gated"
+  output_stream: "SIGNAL:no_hands"
+    node_options: {
+      [type.googleapis.com/mediapipe.HandGateCalculatorOptions] {
+        memory_in_seconds: 1
+        percent_of_one_hand_required: .65
+      }
+    }
+}
+
+node {
+    calculator: "StringEmitterCalculator"
+    input_stream: "SIGNAL:no_hands"
+    output_stream: "STRING:invalid_hands_text"
+    node_options: {
+      [type.googleapis.com/mediapipe.StringEmitterCalculatorOptions] {
+        given_string: "Display 1 hand"
+      }
+    }
+}
+
+node {
+  calculator: "StringToRenderDataCalculator"
+  input_stream: "STRING:invalid_hands_text"
+  output_stream: "RENDER_DATA:invalid_hands_render"
+}
 
 
 node {
   calculator: "FPSCalculatorOneHand"
-  input_stream: "LANDMARKS:landmarks"
+  input_stream: "LANDMARKS:hand_gated"
   output_stream: "DOUBLE:fps"
 }
 
 node {
   calculator: "FPSGateCalculator"
   input_stream: "DOUBLE:fps"
-  input_stream: "LANDMARKS:landmarks"
+  input_stream: "LANDMARKS:hand_gated"
   output_stream: "LANDMARKS:fps_gated"
   output_stream: "SIGNAL:invalid_fps"
   output_stream: "DOUBLE:fps_gated_fps"
@@ -87,6 +116,7 @@ node {
   input_stream: "static_render"
   input_stream: "dynamic_render"
   input_stream: "invalid_fps_render"
+  input_stream: "invalid_hands_render"
   output_stream: "RENDER_DATA:output"
   input_stream_handler {
     input_stream_handler: 'ImmediateInputStreamHandler'

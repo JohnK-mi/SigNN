@@ -40,10 +40,15 @@ namespace mediapipe{
                 average_hand_history += hand_history.at(i);
             }
             average_hand_history /= hand_history.size();
-            if(average_hand_history < .1){
+            if(average_hand_history < DYNAMIC_THRESHOLD && extra_dynamic_frames < 0){
                 auto output_data = absl::make_unique<NormalizedLandmarkList>(static_data);
                 cc->Outputs().Tag(Landmarks).Add(output_data.release(), cc->InputTimestamp());
             }else{
+                if(average_hand_history >= DYNAMIC_THRESHOLD && extra_dynamic_frames < 10){
+                    extra_dynamic_frames += 1;
+                }else{
+                    extra_dynamic_frames -= 1;
+                }
                 auto output_data = absl::make_unique<std::vector<NormalizedLandmarkList>>(dynamic_data);
                 cc->Outputs().Tag(LandmarksHistory).Add(output_data.release(), cc->InputTimestamp());
             }
@@ -55,6 +60,8 @@ namespace mediapipe{
 
         private:
         TimedQueue<double> history;
+        double extra_dynamic_frames = 0;
+        double DYNAMIC_THRESHOLD = .095;
 
     };
     REGISTER_CALCULATOR(StaticDynamicGateCalculator);
