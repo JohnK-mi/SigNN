@@ -40,8 +40,8 @@ node {
   output_stream: "STRING:output"
   node_options: {
     [type.googleapis.com/mediapipe.DynamicTfliteTensorsToCharacterCalculatorOptions] {
-      unknown_threshold: .505
-      last_character_bias: .005
+      unknown_threshold: .51
+      last_character_bias: .01
     }
   }
 }
