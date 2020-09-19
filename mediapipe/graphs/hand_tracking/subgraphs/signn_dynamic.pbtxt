@@ -1,0 +1,46 @@
+type: "SigNNDynamic"
+
+input_stream: "LANDMARKS_HISTORY:history"
+
+
+
+node {
+  calculator: "RegulationCalculator"
+  input_stream: "LANDMARKS_HISTORY:history"
+  output_stream: "DOUBLE_LANDMARKS_HISTORY:double_history"
+}
+
+node {
+  calculator: "LandmarkHistoryToTensorCalculator"
+  input_stream: "DOUBLE_LANDMARKS_HISTORY:double_history"
+  output_stream: "MATRIX:landmark_matrix"
+}
+
+node {
+  calculator: "TfLiteConverterCalculator"
+  input_stream: "MATRIX:landmark_matrix"
+  output_stream: "TENSORS:landmark_tensors"
+}
+
+node {
+  calculator: "TfLiteInferenceCalculator"
+  input_stream: "TENSORS:landmark_tensors"
+  output_stream: "TENSORS:signn_predictions"
+  node_options: {
+    [type.googleapis.com/mediapipe.TfLiteInferenceCalculatorOptions] {
+      model_path: "mediapipe/models/signn_dynamic.tflite"
+    }
+  }
+}
+
+node {
+  calculator: "DynamicTfLiteTensorsToCharacterCalculator"
+  input_stream: "TENSORS:signn_predictions"
+  output_stream: "STRING:output"
+  node_options: {
+    [type.googleapis.com/mediapipe.DynamicTfliteTensorsToCharacterCalculatorOptions] {
+      unknown_threshold: .7
+      last_character_bias: .1
+    }
+  }
+}

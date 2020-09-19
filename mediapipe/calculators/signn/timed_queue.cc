@@ -15,6 +15,9 @@ TimedQueue<T>::TimedQueue(){
 }
 template <class T>
 TimedQueue<T>::TimedQueue(double memory_in_seconds){
+    if (memory_length <= 0){
+        throw __EXCEPTIONS;
+    }
     memory_length = memory_in_seconds;
 }
 template <class T>

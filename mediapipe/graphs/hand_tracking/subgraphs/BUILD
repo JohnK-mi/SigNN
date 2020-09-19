@@ -276,6 +276,17 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:time_average_calculator"
     ],
 )
+mediapipe_simple_subgraph(
+    name = "signn_dynamic",
+    graph = "signn_dynamic.pbtxt",
+    register_as = "SigNNDynamic",
+    deps = [
+        "//mediapipe/calculators/tflite:tflite_inference_calculator",
+        "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
+        "//mediapipe/calculators/signn:time_average_calculator",
+        "//mediapipe/calculators/signn:dynamic_tflite_tensors_to_character_calculator",
+    ],
+)
 
 mediapipe_simple_subgraph(
     name = "signn",
@@ -298,6 +309,7 @@ mediapipe_simple_subgraph(
     register_as = "SigNNOneHand",
     deps = [
         ":signn_static",
+        ":signn_dynamic",
         "//mediapipe/calculators/signn:hand_gate_calculator",
         "//mediapipe/calculators/signn:double_logger",
         "//mediapipe/calculators/signn:signn_end_gate_calculator",

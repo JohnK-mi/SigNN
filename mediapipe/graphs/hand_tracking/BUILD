@@ -39,6 +39,9 @@ cc_library(
         "//mediapipe/calculators/signn:z_score_calculator",
         "//mediapipe/calculators/signn:landmarks_to_tensor_calculator",
         "//mediapipe/calculators/signn:point_velocity_calculator",
+        "//mediapipe/calculators/signn:regulation_calculator",
+        "//mediapipe/calculators/signn:landmarkhistory_to_tensor_calculator",
+        "//mediapipe/calculators/signn:dynamic_tflite_tensors_to_character_calculator",
     ]
 )
 

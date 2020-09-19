@@ -45,6 +45,14 @@ proto_library(
     ],
 )
 proto_library(
+    name = "dynamic_tflite_tensors_to_character_calculator_proto",
+    srcs = ["dynamic_tflite_tensors_to_character_calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+proto_library(
     name = "time_average_calculator_proto",
     srcs = ["time_average_calculator.proto"],
     visibility = ["//visibility:public"],
@@ -105,6 +113,13 @@ mediapipe_cc_proto_library(
     cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
     visibility = ["//visibility:public"],
     deps = [":tflite_tensors_to_character_calculator_proto"],
+)
+mediapipe_cc_proto_library(
+    name = "dynamic_tflite_tensors_to_character_calculator_cc_proto",
+    srcs = ["dynamic_tflite_tensors_to_character_calculator.proto"],
+    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
+    visibility = ["//visibility:public"],
+    deps = [":dynamic_tflite_tensors_to_character_calculator_proto"],
 )
 mediapipe_cc_proto_library(
     name = "time_average_calculator_cc_proto",
@@ -405,6 +420,48 @@ cc_library(
         ":timed_queue",
         "//mediapipe/framework/formats:landmark_cc_proto",
         ":landmark_history_calculator_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "regulation_calculator",
+    srcs = ["regulation_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":timed_queue",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "landmarkhistory_to_tensor_calculator",
+    srcs = ["landmarkhistory_to_tensor_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/port:status",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework/formats:detection_cc_proto",
+        "@org_tensorflow//tensorflow/core:framework",
+        "//mediapipe/framework/formats:matrix",
+    ],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "dynamic_tflite_tensors_to_character_calculator",
+    srcs = ["dynamic_tflite_tensors_to_character_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/port:ret_check",
+        "//mediapipe/framework:calculator_options_cc_proto",
+        ":dynamic_tflite_tensors_to_character_calculator_cc_proto",
+        "@org_tensorflow//tensorflow/lite:framework",
     ],
     alwayslink = 1,
 )
