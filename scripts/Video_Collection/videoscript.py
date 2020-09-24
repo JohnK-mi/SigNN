@@ -1,3 +1,4 @@
+#videoscript.py by Gokul Deep, John Kirchner, and Vahe Barseghyan
 #Dependencies:
 #pip install opencv-python
 #pip install numpy

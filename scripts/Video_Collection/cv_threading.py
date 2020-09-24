@@ -1,3 +1,4 @@
+#cv_threading class by John Kirchner
 import cv2
 import time
 from threading import Thread
