@@ -47,8 +47,8 @@ android_binary(
     assets_dir = "",
     manifest = "//mediapipe/examples/android/src/java/com/google/mediapipe/apps/basic:AndroidManifest.xml",
     manifest_values = {
-        "applicationId": "com.google.mediapipe.apps.handtrackinggpu",
-        "appName": "SigNN One Hand",
+        "applicationId": "com.signn.signn",
+        "appName": "SigNN",
         "mainActivity": ".MainActivity",
         "cameraFacingFront": "True",
         "binaryGraphName": "signn_one_hand.binarypb",

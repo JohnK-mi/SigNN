@@ -36,7 +36,7 @@ namespace mediapipe{
             std::vector<std::vector<double>> frames = cc->Inputs().Tag(LandmarksHistory).Get<std::vector<std::vector<double>>>();
             Matrix bob;
 
-            bob.resize(60, 63);
+            bob.resize(60, 42);
             for(int i = 0; i < frames.size(); i++){
                 auto frame = frames.at(i);
                 for(int j = 0; j < frame.size(); j++){

@@ -495,3 +495,14 @@ cc_library(
     ],
     alwayslink = 1,
 )
+
+cc_library(
+    name = "zscore_per_video_calculator",
+    srcs = ["zscore_per_video_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_options_cc_proto",
+    ],
+    alwayslink = 1,
+)

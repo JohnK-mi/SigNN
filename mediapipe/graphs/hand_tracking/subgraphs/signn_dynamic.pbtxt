@@ -12,8 +12,14 @@ node {
 }
 
 node {
-  calculator: "LandmarkHistoryToTensorCalculator"
+  calculator: "ZscorePerVideoCalculator"
   input_stream: "DOUBLE_LANDMARKS_HISTORY:double_history"
+  output_stream: "DOUBLE_LANDMARKS_HISTORY:double_history_zscore"
+}
+
+node {
+  calculator: "LandmarkHistoryToTensorCalculator"
+  input_stream: "DOUBLE_LANDMARKS_HISTORY:double_history_zscore"
   output_stream: "MATRIX:landmark_matrix"
 }
 
@@ -40,8 +46,8 @@ node {
   output_stream: "STRING:output"
   node_options: {
     [type.googleapis.com/mediapipe.DynamicTfliteTensorsToCharacterCalculatorOptions] {
-      unknown_threshold: .51
-      last_character_bias: .01
+      unknown_threshold: .65
+      last_character_bias: .1
     }
   }
 }

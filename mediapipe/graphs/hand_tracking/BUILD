@@ -30,8 +30,6 @@ cc_library(
     name = "signn_calculators",
     deps = [   
         "//mediapipe/calculators/signn:fps_calculator",
-        "//mediapipe/calculators/signn:double_logger",
-        "//mediapipe/calculators/signn:average_double_calculator",
         "//mediapipe/calculators/signn:string_to_render_data_calculator",
         "//mediapipe/calculators/signn:double_to_string_calculator",
         "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
@@ -49,8 +47,6 @@ cc_library(
     name = "signn_multi_handed",
     deps = [
         ":signn_calculators",
-        "//mediapipe/graphs/hand_tracking/subgraphs:multi_hand_renderer_gpu_fps",
-        "//mediapipe/calculators/signn:coordinate_modifiers", 
         "//mediapipe/calculators/signn:console_logger_calculator",  
         "//mediapipe/graphs/hand_tracking/subgraphs:signn", 
     ]
@@ -60,7 +56,6 @@ cc_library(
     name = "signn_single_handed",
     deps = [
         ":signn_calculators",
-        "//mediapipe/graphs/hand_tracking/subgraphs:renderer_gpu_fps",
         "//mediapipe/graphs/hand_tracking/subgraphs:SigNNOneHand", 
     ]
 )

@@ -44,7 +44,7 @@ namespace mediapipe{
             label_annotation->mutable_color()->set_r(0);
             label_annotation->mutable_color()->set_g(0);
             label_annotation->mutable_color()->set_b(0);
-            label_annotation->set_thickness(1);
+            label_annotation->set_thickness(3);
 
             auto* label_annotation_other = render_data->add_render_annotations();
             auto* text_other = label_annotation_other->mutable_text();
@@ -56,7 +56,7 @@ namespace mediapipe{
             label_annotation->mutable_color()->set_r(256);
             label_annotation->mutable_color()->set_g(256);
             label_annotation->mutable_color()->set_b(256);
-            label_annotation->set_thickness(1);
+            label_annotation->set_thickness(3);
 
             cc->Outputs().Tag(kRenderDataTag).Add(render_data.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();

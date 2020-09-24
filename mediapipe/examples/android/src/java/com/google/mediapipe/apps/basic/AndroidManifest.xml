@@ -3,8 +3,8 @@
     package="com.google.mediapipe.apps.basic">
 
   <uses-sdk
-      android:minSdkVersion="21"
-      android:targetSdkVersion="27" />
+      android:minSdkVersion="29"
+      android:targetSdkVersion="29" />
 
   <!-- For using the camera -->
   <uses-permission android:name="android.permission.CAMERA" />

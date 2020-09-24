@@ -285,6 +285,7 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/signn:tflite_tensors_to_character_calculator",
         "//mediapipe/calculators/signn:time_average_calculator",
         "//mediapipe/calculators/signn:dynamic_tflite_tensors_to_character_calculator",
+        "//mediapipe/calculators/signn:zscore_per_video_calculator",
     ],
 )
 

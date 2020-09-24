@@ -112,12 +112,12 @@ namespace mediapipe{
                 for(int j = 0; j < hand_obj.landmark_size(); j++){
                     hand.push_back(hand_obj.landmark(j).x());
                     hand.push_back(hand_obj.landmark(j).y());
-                    hand.push_back(hand_obj.landmark(j).z());
+                    // hand.push_back(hand_obj.landmark(j).z());
                 }
                 unregulatedHands.push_back(hand);
             }
 
-            auto regulatedHands = regulation(unregulatedHands, 60, 63);           
+            auto regulatedHands = regulation(unregulatedHands, 60, 42);           
             std::unique_ptr<std::vector<std::vector<double>>> output_stream_collection = std::make_unique<std::vector<std::vector<double>>>(regulatedHands); 
             cc -> Outputs().Tag(DoubleLandmarksHistory).Add(output_stream_collection.release(), cc->InputTimestamp());
             return ::mediapipe::OkStatus();
